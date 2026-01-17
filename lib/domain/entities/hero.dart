@@ -1,5 +1,3 @@
-// src/domain/entity/hero.dart
-
 enum HeroAlignment { hero, villain, neutral, unknown }
 
 class HeroStats {
