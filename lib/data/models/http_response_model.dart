@@ -22,12 +22,4 @@ class HttpResponseSearchModel {
           : [],
     );
   }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'response': response,
-      'results-for': resultsFor,
-      'results': results.map((e) => e.toJson()).toList(),
-    };
-  }
 }

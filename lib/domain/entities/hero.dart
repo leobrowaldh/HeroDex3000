@@ -37,7 +37,7 @@ class HeroLocation {
 }
 
 class Hero {
-  final String id;
+  final String? localId;
   final String? externalId;
 
   final String name;
@@ -54,11 +54,9 @@ class Hero {
   // Metadata
   final DateTime createdAt;
   final DateTime? updatedAt;
-  final bool isFavorite;
-  final bool isFromApi;
 
   const Hero({
-    required this.id,
+    this.localId,
     this.externalId,
     required this.name,
     this.fullName,
@@ -69,7 +67,7 @@ class Hero {
     this.lastKnownBattleLocation,
     required this.createdAt,
     this.updatedAt,
-    this.isFavorite = false,
-    this.isFromApi = true,
   });
+
+  bool get isSaved => localId != null;
 }

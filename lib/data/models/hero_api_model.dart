@@ -1,7 +1,6 @@
 import 'package:uuid/uuid.dart';
 
 class HeroApiModel {
-  final String localId;
   final String? id;
   final String name;
   final String? fullName;
@@ -38,7 +37,6 @@ class HeroApiModel {
   final String? updatedAt;
 
   HeroApiModel({
-    required this.localId,
     this.id,
     required this.name,
     this.fullName,
@@ -71,7 +69,6 @@ class HeroApiModel {
 
   factory HeroApiModel.fromJson(Map<String, dynamic> json) {
     return HeroApiModel(
-      localId: json['localId'] ?? Uuid().v4(),
       id: json['id'],
       name: json['name'] ?? '',
       fullName: json['biography']?['full-name'],
@@ -107,46 +104,5 @@ class HeroApiModel {
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'localId': localId,
-      'id': id,
-      'name': name,
-      'powerstats': {
-        'intelligence': intelligence,
-        'strength': strength,
-        'speed': speed,
-        'durability': durability,
-        'power': power,
-        'combat': combat,
-      },
-      'biography': {
-        'full-name': fullName,
-        'alter-egos': alterEgos,
-        'aliases': aliases,
-        'place-of-birth': placeOfBirth,
-        'first-appearance': firstAppearance,
-        'publisher': publisher,
-        'alignment': alignment,
-      },
-      'appearance': {
-        'gender': gender,
-        'race': race,
-        'height': height,
-        'weight': weight,
-        'eye-color': eyeColor,
-        'hair-color': hairColor,
-      },
-      'connections': {
-        'group-affiliation': groupAffiliation,
-        'relatives': relatives,
-      },
-      'work': {'occupation': occupation, 'base': base},
-      'image': {'url': imageUrl},
-      'createdAt': createdAt,
-      'updatedAt': updatedAt,
-    };
   }
 }

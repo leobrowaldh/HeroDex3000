@@ -8,7 +8,7 @@ class HeroMapper {
   // -------------------------
   static Hero fromApi(HeroApiModel api) {
     return Hero(
-      id: api.localId,
+      localId: null,
       externalId: api.id,
       name: api.name,
       fullName: api.fullName,
@@ -26,17 +26,15 @@ class HeroMapper {
       lastKnownBattleLocation: null,
       createdAt: DateTime.now(),
       updatedAt: null,
-      isFavorite: false,
-      isFromApi: true,
     );
   }
 
   // -------------------------
   // API → DB
   // -------------------------
-  static HeroDbModel apiToDb(HeroApiModel api) {
+  static HeroDbModel apiToDb(HeroApiModel api, {required String localId}) {
     return HeroDbModel(
-      id: api.localId,
+      id: localId,
       externalId: api.id,
       name: api.name,
       fullName: api.fullName,
@@ -63,8 +61,6 @@ class HeroMapper {
       locationDescription: null,
       createdAt: DateTime.now(),
       updatedAt: null,
-      isFavorite: false,
-      isFromApi: true,
     );
   }
 
@@ -73,7 +69,7 @@ class HeroMapper {
   // -------------------------
   static Hero fromDb(HeroDbModel db) {
     return Hero(
-      id: db.id,
+      localId: db.id,
       externalId: db.externalId,
       name: db.name,
       fullName: db.fullName,
@@ -97,45 +93,6 @@ class HeroMapper {
           : null,
       createdAt: db.createdAt,
       updatedAt: db.updatedAt,
-      isFavorite: db.isFavorite,
-      isFromApi: db.isFromApi,
-    );
-  }
-
-  // -------------------------
-  // Domain → DB (for updates)
-  // -------------------------
-  static HeroDbModel toDb(Hero hero, HeroDbModel existing) {
-    return HeroDbModel(
-      id: hero.id,
-      externalId: hero.externalId,
-      name: hero.name,
-      fullName: hero.fullName,
-      publisher: hero.publisher,
-      alignment: hero.alignment.name,
-      imageUrl: hero.imageUrl,
-      strength: hero.stats.strength,
-      intelligence: hero.stats.intelligence,
-      speed: hero.stats.speed,
-      durability: hero.stats.durability,
-      power: hero.stats.power,
-      combat: hero.stats.combat,
-      aliases: existing.aliases,
-      race: existing.race,
-      gender: existing.gender,
-      placeOfBirth: existing.placeOfBirth,
-      firstAppearance: existing.firstAppearance,
-      occupation: existing.occupation,
-      base: existing.base,
-      groupAffiliation: existing.groupAffiliation,
-      relatives: existing.relatives,
-      latitude: hero.lastKnownBattleLocation?.latitude,
-      longitude: hero.lastKnownBattleLocation?.longitude,
-      locationDescription: hero.lastKnownBattleLocation?.description,
-      createdAt: existing.createdAt,
-      updatedAt: DateTime.now(),
-      isFavorite: hero.isFavorite,
-      isFromApi: hero.isFromApi,
     );
   }
 
@@ -147,7 +104,7 @@ class HeroMapper {
   }
 
   static HeroAlignment _mapAlignment(String? value) {
-    switch (value) {
+    switch (value?.toLowerCase()) {
       case "good":
         return HeroAlignment.hero;
       case "bad":

@@ -1,10 +1,8 @@
 import 'package:herodex/domain/entities/hero.dart';
 
 abstract class IHeroRepository {
+  Future<List<Hero>> searchHeroes(String query);
+  Future<List<Hero>> getSavedHeroes();
   Future<void> saveHero(Hero hero);
-  Future<List<Hero>> getHeroList();
-  Future<List<Hero>> searchHero(String query);
   Future<void> deleteHero(String id);
-  Future<Hero?> getHeroById(String id);
-  Future<void> updateHero(Hero hero);
 }
