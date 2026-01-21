@@ -1,6 +1,6 @@
 class HeroDbModel {
-  final String id;               // internal DB id
-  final String? externalId;      // API id if available
+  final String id; // DB id
+  final String? externalId; // API id
 
   final String name;
   final String? fullName;
@@ -35,8 +35,6 @@ class HeroDbModel {
   // Metadata
   final DateTime createdAt;
   final DateTime? updatedAt;
-  final bool isFavorite;
-  final bool isFromApi;
 
   const HeroDbModel({
     required this.id,
@@ -66,8 +64,6 @@ class HeroDbModel {
     this.locationDescription,
     required this.createdAt,
     this.updatedAt,
-    this.isFavorite = false,
-    this.isFromApi = true,
   });
 
   factory HeroDbModel.fromJson(Map<String, dynamic> json) {
@@ -98,15 +94,14 @@ class HeroDbModel {
       longitude: json['longitude'],
       locationDescription: json['locationDescription'],
       createdAt: DateTime.parse(json['createdAt']),
-      updatedAt: json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
-      isFavorite: json['isFavorite'] ?? false,
-      isFromApi: json['isFromApi'] ?? true,
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.parse(json['updatedAt'])
+          : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'externalId': externalId,
       'name': name,
       'fullName': fullName,
@@ -133,8 +128,6 @@ class HeroDbModel {
       'locationDescription': locationDescription,
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt?.toIso8601String(),
-      'isFavorite': isFavorite,
-      'isFromApi': isFromApi,
     };
   }
 }
