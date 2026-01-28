@@ -8,6 +8,10 @@ import 'package:herodex/data/datasource/local_db.dart';
 
 import 'package:herodex/domain/repositories/i_hero_repository.dart';
 import 'package:herodex/data/repositories/hero_repository.dart';
+import 'package:herodex/domain/use_cases/delete_hero_usecase.dart';
+import 'package:herodex/domain/use_cases/get_saved_heroes_usecase.dart';
+import 'package:herodex/domain/use_cases/save_hero_usecase.dart';
+import 'package:herodex/domain/use_cases/search_heroes_usecase.dart';
 
 final getIt = GetIt.instance;
 
@@ -19,5 +23,20 @@ void setupDependencies() {
       httpClient: getIt<IHeroHttpClient>(),
       localDb: getIt<ILocalDb>(),
     ),
+  );
+  getIt.registerLazySingleton<SearchHeroesUseCase>(
+    () => SearchHeroesUseCase(getIt<IHeroRepository>()),
+  );
+
+  getIt.registerLazySingleton<GetSavedHeroesUseCase>(
+    () => GetSavedHeroesUseCase(getIt<IHeroRepository>()),
+  );
+
+  getIt.registerLazySingleton<SaveHeroUseCase>(
+    () => SaveHeroUseCase(getIt<IHeroRepository>()),
+  );
+
+  getIt.registerLazySingleton<DeleteHeroUseCase>(
+    () => DeleteHeroUseCase(getIt<IHeroRepository>()),
   );
 }
