@@ -4,7 +4,7 @@ import 'package:herodex/presentation/auth/cubit/auth_cubit.dart';
 import 'package:herodex/presentation/auth/cubit/auth_state.dart';
 import 'package:herodex/presentation/auth/widgets/login_screen.dart';
 import 'package:herodex/presentation/auth/widgets/splash_screen.dart';
-import 'package:herodex/presentation/pages/home.dart';
+import 'package:herodex/presentation/routing/router.dart';
 
 class AuthFlow extends StatelessWidget {
   const AuthFlow({super.key});
@@ -14,12 +14,27 @@ class AuthFlow extends StatelessWidget {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         if (state is AuthAuthenticated) {
-          return const Home(title: 'HeroDex3000');
+          return MaterialApp.router(
+            routerConfig: appRouter,
+            debugShowCheckedModeBanner: false,
+            title: 'HeroDex3000',
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            ),
+          );
         }
+
         if (state is AuthUnauthenticated) {
-          return const LoginScreen();
+          return const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: LoginScreen(),
+          );
         }
-        return const SplashScreen();
+
+        return const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: SplashScreen(),
+        );
       },
     );
   }
