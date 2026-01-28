@@ -20,17 +20,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      create: (context) => AuthRepository(),
+      create: (_) => AuthRepository(),
       child: BlocProvider(
         create: (context) => AuthCubit(context.read<AuthRepository>()),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'HeroDex3000',
-          theme: ThemeData(
-            colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-          ),
-          home: const AuthFlow(),
-        ),
+        child: const AuthFlow(),
       ),
     );
   }
