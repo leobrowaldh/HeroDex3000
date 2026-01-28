@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "134943825538",
+    "project_id": "herodex-1928e",
+    "storage_bucket": "herodex-1928e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134943825538:android:ca9f2d66e46199c5891e9b",
+        "android_client_info": {
+          "package_name": "com.example.herodex"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUDUdsUAA9TIxp3Va3qMowUcoBz_zqpg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
