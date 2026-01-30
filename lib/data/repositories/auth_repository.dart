@@ -5,10 +5,13 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth;
-  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+  final FirebaseAnalytics _analytics;
 
-  AuthRepository({FirebaseAuth? firebaseAuth})
-    : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+  AuthRepository({
+    required FirebaseAuth firebaseAuth,
+    required FirebaseAnalytics analytics,
+  }) : _firebaseAuth = firebaseAuth,
+       _analytics = analytics;
 
   User? get currentUser => _firebaseAuth.currentUser;
 
@@ -20,6 +23,7 @@ class AuthRepository {
       password: password,
     );
 
+    // Only log analytics on mobile platforms
     if (Platform.isAndroid || Platform.isIOS) {
       await _analytics.logLogin(loginMethod: "password");
     }
