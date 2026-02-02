@@ -1,13 +1,13 @@
 import 'package:herodex/data/models/hero_api_model.dart';
 import 'package:herodex/data/models/hero_db_model.dart';
-import 'package:herodex/domain/entities/hero.dart';
+import 'package:herodex/domain/entities/hero_entity.dart';
 
 class HeroMapper {
   // -------------------------
   // API → Domain
   // -------------------------
-  static Hero fromApi(HeroApiModel api) {
-    return Hero(
+  static HeroEntity fromApi(HeroApiModel api) {
+    return HeroEntity(
       localId: null,
       externalId: api.id,
       name: api.name,
@@ -67,8 +67,8 @@ class HeroMapper {
   // -------------------------
   // DB → Domain
   // -------------------------
-  static Hero fromDb(HeroDbModel db) {
-    return Hero(
+  static HeroEntity fromDb(HeroDbModel db) {
+    return HeroEntity(
       localId: db.id,
       externalId: db.externalId,
       name: db.name,

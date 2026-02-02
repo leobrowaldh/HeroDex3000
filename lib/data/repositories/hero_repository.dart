@@ -1,6 +1,6 @@
 import 'package:uuid/uuid.dart';
 
-import 'package:herodex/domain/entities/hero.dart';
+import 'package:herodex/domain/entities/hero_entity.dart';
 import 'package:herodex/domain/repositories/i_hero_repository.dart';
 
 import 'package:herodex/data/datasource/i_hero_http_client.dart';
@@ -23,7 +23,7 @@ class HeroRepository implements IHeroRepository {
        _localDb = localDb;
 
   @override
-  Future<List<Hero>> searchHeroes(String query) async {
+  Future<List<HeroEntity>> searchHeroes(String query) async {
     // 1. Fetch from API
     final response = await _httpClient.searchHeroes(query);
     final List<HeroApiModel> apiResults = response.results;
@@ -45,7 +45,7 @@ class HeroRepository implements IHeroRepository {
     }
 
     // 5. Merge API + saved heroes into domain models
-    final List<Hero> domainResults = apiResults.map((apiHero) {
+    final List<HeroEntity> domainResults = apiResults.map((apiHero) {
       final dbHero = savedByExternalId[apiHero.id];
 
       if (dbHero != null) {
@@ -61,13 +61,13 @@ class HeroRepository implements IHeroRepository {
   }
 
   @override
-  Future<List<Hero>> getSavedHeroes() async {
+  Future<List<HeroEntity>> getSavedHeroes() async {
     final savedDbHeroes = await _localDb.getAllHeroes();
     return savedDbHeroes.map(HeroMapper.fromDb).toList();
   }
 
   @override
-  Future<void> saveHero(Hero hero) async {
+  Future<void> saveHero(HeroEntity hero) async {
     final externalId = hero.externalId;
     if (externalId == null) {
       throw Exception('Cannot save hero without externalId');

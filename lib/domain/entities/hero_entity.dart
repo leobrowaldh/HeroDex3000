@@ -36,7 +36,7 @@ class HeroLocation {
   const HeroLocation({this.latitude, this.longitude, this.description});
 }
 
-class Hero {
+class HeroEntity {
   final String? localId;
   final String? externalId;
 
@@ -55,7 +55,7 @@ class Hero {
   final DateTime createdAt;
   final DateTime? updatedAt;
 
-  const Hero({
+  const HeroEntity({
     this.localId,
     this.externalId,
     required this.name,

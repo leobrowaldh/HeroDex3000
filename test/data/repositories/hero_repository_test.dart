@@ -7,7 +7,7 @@ import 'package:herodex/data/datasource/i_local_db.dart';
 import 'package:herodex/data/models/hero_api_model.dart';
 import 'package:herodex/data/models/hero_db_model.dart';
 import 'package:herodex/data/models/http_response_model.dart';
-import 'package:herodex/domain/entities/hero.dart';
+import 'package:herodex/domain/entities/hero_entity.dart';
 
 class MockHttpClient extends Mock implements IHeroHttpClient {}
 
@@ -199,7 +199,7 @@ void main() {
 
     await repo.searchHeroes('bat');
 
-    final hero = Hero(
+    final hero = HeroEntity(
       externalId: '300',
       name: 'Batman',
       fullName: null,

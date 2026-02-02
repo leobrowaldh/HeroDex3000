@@ -24,7 +24,7 @@ class AuthFlow extends StatelessWidget {
           );
         }
 
-        if (state is AuthUnauthenticated) {
+        if (state is AuthUnauthenticated || state is AuthError) {
           return const MaterialApp(
             debugShowCheckedModeBanner: false,
             home: LoginPage(),

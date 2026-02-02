@@ -18,14 +18,34 @@ class AuthRepository {
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
   Future<void> signIn({required String email, required String password}) async {
-    await _firebaseAuth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-    // Only log analytics on mobile platforms
-    if (Platform.isAndroid || Platform.isIOS) {
-      await _analytics.logLogin(loginMethod: "password");
+      if (Platform.isAndroid || Platform.isIOS) {
+        await _analytics.logLogin(loginMethod: "password");
+      }
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'invalid-email':
+          throw AuthFailure('The email address is not valid.');
+        case 'user-not-found':
+          throw AuthFailure('No account found with that email.');
+        case 'wrong-password':
+          throw AuthFailure('Incorrect password. Please try again.');
+        case 'user-disabled':
+          throw AuthFailure('This account has been disabled.');
+        case 'too-many-requests':
+          throw AuthFailure(
+            'Too many login attempts. Please wait and try again.',
+          );
+        default:
+          throw AuthFailure('Login failed. Please try again.');
+      }
+    } catch (_) {
+      throw AuthFailure('An unexpected error occurred during login.');
     }
   }
 
@@ -39,4 +59,9 @@ class AuthRepository {
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }
+}
+
+class AuthFailure implements Exception {
+  final String message;
+  AuthFailure(this.message);
 }

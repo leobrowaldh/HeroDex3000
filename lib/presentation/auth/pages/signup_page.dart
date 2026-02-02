@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:herodex/presentation/auth/cubit/auth_cubit.dart';
 import 'package:herodex/presentation/auth/cubit/auth_state.dart';
-import 'signup_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -33,13 +32,14 @@ class _LoginPageState extends State<LoginPage> {
         }
       },
       child: Scaffold(
+        appBar: AppBar(title: const Text("Create Account")),
         body: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                'HeroDex 3000 Login',
+                'Sign Up',
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 32),
@@ -61,24 +61,12 @@ class _LoginPageState extends State<LoginPage> {
 
               ElevatedButton(
                 onPressed: () {
-                  context.read<AuthCubit>().signIn(
+                  context.read<AuthCubit>().signUp(
                     emailController.text.trim(),
                     passwordController.text.trim(),
                   );
                 },
-                child: const Text('Log in'),
-              ),
-
-              const SizedBox(height: 16),
-
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const SignUpPage()),
-                  );
-                },
-                child: const Text("Create an account"),
+                child: const Text('Create account'),
               ),
             ],
           ),
