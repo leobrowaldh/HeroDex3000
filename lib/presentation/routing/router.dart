@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:herodex/injection.dart';
+import 'package:herodex/presentation/auth/pages/login_page.dart';
 import 'package:herodex/presentation/onboarding/cubit/onboarding_cubit.dart';
 import 'package:herodex/presentation/onboarding/pages/onboarding_permissions_page.dart';
 import 'package:herodex/presentation/onboarding/services/onboarding_service.dart';
@@ -74,6 +75,7 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
+        GoRoute(path: '/auth', builder: (context, state) => const LoginPage()),
       ],
     ),
   ],
