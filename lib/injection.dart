@@ -12,6 +12,7 @@ import 'package:herodex/domain/use_cases/delete_hero_usecase.dart';
 import 'package:herodex/domain/use_cases/get_saved_heroes_usecase.dart';
 import 'package:herodex/domain/use_cases/save_hero_usecase.dart';
 import 'package:herodex/domain/use_cases/search_heroes_usecase.dart';
+import 'package:herodex/presentation/onboarding/services/onboarding_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -27,16 +28,14 @@ void setupDependencies() {
   getIt.registerLazySingleton<SearchHeroesUseCase>(
     () => SearchHeroesUseCase(getIt<IHeroRepository>()),
   );
-
   getIt.registerLazySingleton<GetSavedHeroesUseCase>(
     () => GetSavedHeroesUseCase(getIt<IHeroRepository>()),
   );
-
   getIt.registerLazySingleton<SaveHeroUseCase>(
     () => SaveHeroUseCase(getIt<IHeroRepository>()),
   );
-
   getIt.registerLazySingleton<DeleteHeroUseCase>(
     () => DeleteHeroUseCase(getIt<IHeroRepository>()),
   );
+  getIt.registerLazySingleton<OnboardingService>(() => OnboardingService());
 }

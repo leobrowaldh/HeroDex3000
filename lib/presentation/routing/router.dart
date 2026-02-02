@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:herodex/injection.dart';
+import 'package:herodex/presentation/onboarding/cubit/onboarding_cubit.dart';
+import 'package:herodex/presentation/onboarding/pages/onboarding_permissions_page.dart';
+import 'package:herodex/presentation/onboarding/services/onboarding_service.dart';
 import 'package:herodex/presentation/pages/detail_screen.dart';
 import 'package:herodex/presentation/pages/home.dart';
+import 'package:herodex/presentation/onboarding/pages/onboarding_intro_page.dart';
+import 'package:herodex/presentation/onboarding/pages/onboarding_summary_page.dart';
 
 class AppShell extends StatelessWidget {
   final Widget child;
@@ -38,6 +45,35 @@ final GoRouter appRouter = GoRouter(
           builder: (context, state) => HomeScreen(title: ''),
         ),
         GoRoute(path: '/details', builder: (context, state) => DetailsScreen()),
+        GoRoute(
+          path: '/onboarding',
+          builder: (context, state) {
+            return BlocProvider(
+              create: (_) => OnboardingCubit(getIt<OnboardingService>()),
+              child: const OnboardingIntroPage(),
+            );
+          },
+          routes: [
+            GoRoute(
+              path: 'permissions',
+              builder: (context, state) {
+                return BlocProvider.value(
+                  value: context.read<OnboardingCubit>(),
+                  child: const OnboardingPermissionsPage(),
+                );
+              },
+            ),
+            GoRoute(
+              path: 'summary',
+              builder: (context, state) {
+                return BlocProvider.value(
+                  value: context.read<OnboardingCubit>(),
+                  child: const OnboardingSummaryPage(),
+                );
+              },
+            ),
+          ],
+        ),
       ],
     ),
   ],

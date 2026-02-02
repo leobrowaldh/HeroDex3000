@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:herodex/presentation/auth/cubit/auth_cubit.dart';
 import 'package:herodex/presentation/auth/cubit/auth_state.dart';
-import 'package:herodex/presentation/auth/widgets/login_screen.dart';
-import 'package:herodex/presentation/auth/widgets/splash_screen.dart';
+import 'package:herodex/presentation/auth/pages/login_page.dart';
+import 'package:herodex/presentation/auth/pages/splash_page.dart';
 import 'package:herodex/presentation/routing/router.dart';
 
 class AuthFlow extends StatelessWidget {
@@ -33,7 +33,7 @@ class AuthFlow extends StatelessWidget {
 
         return const MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: SplashScreen(),
+          home: SplashPage(),
         );
       },
     );

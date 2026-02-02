@@ -26,7 +26,7 @@ class HeroRepository implements IHeroRepository {
   Future<List<Hero>> searchHeroes(String query) async {
     // 1. Fetch from API
     final response = await _httpClient.searchHeroes(query);
-    final List<HeroApiModel> apiResults = response.results ?? [];
+    final List<HeroApiModel> apiResults = response.results;
 
     // 2. Fetch saved heroes from local DB
     final List<HeroDbModel> savedDbHeroes = await _localDb.getAllHeroes();
