@@ -24,8 +24,15 @@ import 'package:herodex/presentation/onboarding/pages/onboarding_intro_page.dart
 import 'package:herodex/presentation/onboarding/pages/onboarding_permissions_page.dart';
 import 'package:herodex/presentation/onboarding/pages/onboarding_summary_page.dart';
 
+import 'package:herodex/presentation/auth/pages/splash_page.dart';
+
 final GoRouter appRouter = GoRouter(
+  initialLocation: '/splash',
   routes: [
+    GoRoute(
+      path: '/splash',
+      builder: (context, state) => const SplashPage(),
+    ),
     ShellRoute(
       builder: (context, state, child) => AppShell(child: child),
       routes: [
@@ -64,32 +71,27 @@ final GoRouter appRouter = GoRouter(
 
     GoRoute(path: '/auth', builder: (context, state) => const LoginPage()),
 
-    GoRoute(
-      path: '/onboarding',
-      builder: (context, state) {
+    ShellRoute(
+      builder: (context, state, child) {
         return BlocProvider(
           create: (_) => OnboardingCubit(getIt<OnboardingService>()),
-          child: const OnboardingIntroPage(),
+          child: child,
         );
       },
       routes: [
         GoRoute(
-          path: 'permissions',
-          builder: (context, state) {
-            return BlocProvider.value(
-              value: context.read<OnboardingCubit>(),
-              child: const OnboardingPermissionsPage(),
-            );
-          },
-        ),
-        GoRoute(
-          path: 'summary',
-          builder: (context, state) {
-            return BlocProvider.value(
-              value: context.read<OnboardingCubit>(),
-              child: const OnboardingSummaryPage(),
-            );
-          },
+          path: '/onboarding',
+          builder: (context, state) => const OnboardingIntroPage(),
+          routes: [
+            GoRoute(
+              path: 'permissions',
+              builder: (context, state) => const OnboardingPermissionsPage(),
+            ),
+            GoRoute(
+              path: 'summary',
+              builder: (context, state) => const OnboardingSummaryPage(),
+            ),
+          ],
         ),
       ],
     ),

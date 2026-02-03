@@ -12,21 +12,26 @@ class OnboardingIntroPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Icon(Icons.terminal, size: 80),
+            const SizedBox(height: 24),
             const Text(
-              'Välkommen till HeroDex 3000',
+              'Welcome to HeroDex 3000',
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
             const Text(
-              'Efter invasionen behövs en ny generation hjältar. '
-              'Låt oss sätta upp din terminal.',
+              'The world needs a new generation of heroes.\nLet\'s set up your terminal.',
               textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16),
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 48),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(200, 50),
+              ),
               onPressed: () => context.go('/onboarding/permissions'),
-              child: const Text('Starta'),
+              child: const Text('Start Setup'),
             ),
           ],
         ),

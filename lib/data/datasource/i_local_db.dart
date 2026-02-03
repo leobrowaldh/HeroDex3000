@@ -5,4 +5,5 @@ abstract class ILocalDb {
   Future<void> deleteHero(String localId);
   Future<List<HeroDbModel>> getAllHeroes();
   Future<HeroDbModel?> getHeroByLocalId(String localId);
+  Future<HeroDbModel?> getHeroByExternalId(String externalId);
 }

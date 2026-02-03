@@ -13,6 +13,7 @@ import 'package:herodex/domain/use_cases/get_saved_heroes_usecase.dart';
 import 'package:herodex/domain/use_cases/save_hero_usecase.dart';
 import 'package:herodex/domain/use_cases/search_heroes_usecase.dart';
 import 'package:herodex/presentation/onboarding/services/onboarding_service.dart';
+import 'package:herodex/presentation/saved/cubit/saved_cubit.dart';
 import 'package:herodex/presentation/search/cubit/search_cubit.dart';
 
 final getIt = GetIt.instance;
@@ -66,6 +67,13 @@ void setupDependencies() {
       getIt<SearchHeroesUseCase>(),
       getIt<SaveHeroUseCase>(),
       getIt<DeleteHeroUseCase>(),
+    ),
+  );
+
+  getIt.registerFactory<SavedCubit>(
+    () => SavedCubit(
+      getSavedHeroesUseCase: getIt<GetSavedHeroesUseCase>(),
+      deleteHeroUseCase: getIt<DeleteHeroUseCase>(),
     ),
   );
 }

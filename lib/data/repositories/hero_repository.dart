@@ -89,6 +89,13 @@ class HeroRepository implements IHeroRepository {
       );
     }
 
+    // Check if already saved
+    final existingHero = await _localDb.getHeroByExternalId(externalId);
+    if (existingHero != null) {
+      // Already saved, prevent duplicate
+      return; 
+    }
+
     // Generate local DB id
     final localId = const Uuid().v4();
 

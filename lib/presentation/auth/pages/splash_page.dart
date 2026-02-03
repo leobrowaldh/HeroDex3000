@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:herodex/injection.dart';
 import 'package:herodex/presentation/onboarding/services/onboarding_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -21,6 +22,7 @@ class _SplashPageState extends State<SplashPage> {
     await Future.delayed(const Duration(milliseconds: 800));
 
     final onboardingDone = await getIt<OnboardingService>().isOnboardingDone();
+    final user = FirebaseAuth.instance.currentUser;
 
     if (!mounted) return;
 
@@ -29,7 +31,11 @@ class _SplashPageState extends State<SplashPage> {
       return;
     }
 
-    context.go('/auth');
+    if (user != null) {
+      context.go('/');
+    } else {
+      context.go('/auth');
+    }
   }
 
   @override

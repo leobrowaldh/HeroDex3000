@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:herodex/presentation/home/cubit/home_cubit.dart';
-import 'package:herodex/presentation/search/widgets/hero_card.dart';
+import 'package:herodex/presentation/home/widgets/hero_count_card.dart';
+import 'package:herodex/presentation/home/widgets/stats_card.dart';
 import 'package:herodex/injection.dart';
 import 'package:go_router/go_router.dart';
 
@@ -26,44 +27,82 @@ class HomePage extends StatelessWidget {
             }
 
             if (state is HomeLoaded) {
-              return Padding(
+              return SingleChildScrollView(
                 padding: const EdgeInsets.all(16),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text(
-                      'Saved Heroes: ${state.heroes.length}',
-                      style: Theme.of(context).textTheme.headlineSmall,
+                    // --- STATISTICS CARDS ---
+                    Row(
+                      children: [
+                        Expanded(
+                          child: HeroCountCard(
+                            title: 'Heroes',
+                            count: state.heroCount,
+                            icon: Icons.shield,
+                            color: Colors.blueAccent,
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: HeroCountCard(
+                            title: 'Villains',
+                            count: state.villainCount,
+                            icon: Icons.warning_amber_rounded,
+                            color: Colors.redAccent,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Total fighting power: ${state.totalPower}',
-                      style: Theme.of(context).textTheme.titleMedium,
+                    const SizedBox(height: 16),
+                    StatsCard(
+                      title: 'Total Fighting Power',
+                      value: state.totalPower.toString(),
+                      icon: Icons.bolt,
+                      accentColor: Colors.amber,
                     ),
-                    const SizedBox(height: 24),
-                    Text(
-                      'Invasion Status',
-                      style: Theme.of(context).textTheme.titleLarge,
+
+                    const SizedBox(height: 32),
+
+                    // --- INVASION STATUS ---
+                    Row(
+                      children: [
+                        const Icon(Icons.public, color: Colors.blueGrey),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Latest War Updates',
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 8),
-                    const Text('We are being invaded!...'),
-                    const SizedBox(height: 24),
-                    Expanded(
-                      child: state.heroes.isEmpty
-                          ? const Center(child: Text('No saved heroes yet.'))
-                          : ListView.builder(
-                              itemCount: state.heroes.length,
-                              itemBuilder: (context, index) {
-                                final hero = state.heroes[index];
-                                return HeroCard(
-                                  hero: hero,
-                                  onTap: () {
-                                    context.push('/details', extra: hero);
-                                  },
-                                );
-                              },
+                    const SizedBox(height: 12),
+                    
+                    ...state.warUpdates.map((update) {
+                       return Card(
+                        elevation: 2,
+                        margin: const EdgeInsets.only(bottom: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: ListTile(
+                          leading: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.blueGrey.withOpacity(0.1),
+                              shape: BoxShape.circle,
                             ),
-                    ),
+                            child: Icon(update.icon, color: Colors.blueGrey[700]),
+                          ),
+                          title: Text(
+                            update.title,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(update.description),
+                        ),
+                      );
+                    }),
                   ],
                 ),
               );
@@ -105,7 +144,7 @@ class HomePage extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.bookmark),
-            title: const Text('Saved Heroes'),
+            title: const Text('Heroes / Villains'),
             onTap: () {
               Navigator.pop(context);
               context.go('/saved');

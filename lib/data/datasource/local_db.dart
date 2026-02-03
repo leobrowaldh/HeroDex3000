@@ -37,4 +37,20 @@ class LocalDb implements ILocalDb {
       doc.data()!, // <-- JSON map
     );
   }
+
+  @override
+  Future<HeroDbModel?> getHeroByExternalId(String externalId) async {
+    final query = await _collection
+        .where('externalId', isEqualTo: externalId)
+        .limit(1)
+        .get();
+
+    if (query.docs.isEmpty) return null;
+
+    final doc = query.docs.first;
+    return HeroDbModel.fromJson(
+      doc.id,
+      doc.data(),
+    );
+  }
 }

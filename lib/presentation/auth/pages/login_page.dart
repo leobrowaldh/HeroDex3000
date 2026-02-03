@@ -1,17 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:herodex/presentation/auth/cubit/auth_cubit.dart';
-import 'package:herodex/presentation/auth/cubit/auth_state.dart';
+import 'package:go_router/go_router.dart';
+import 'package:herodex/data/repositories/auth_repository.dart';
+import 'package:herodex/presentation/auth/cubit/login_cubit.dart';
+import 'package:herodex/presentation/auth/cubit/login_state.dart';
 import 'signup_page.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => LoginCubit(context.read<AuthRepository>()),
+      child: const LoginForm(),
+    );
+  }
 }
 
-class _LoginPageState extends State<LoginPage> {
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -24,12 +38,17 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthCubit, AuthState>(
+    return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
-        if (state is AuthError) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(state.message)));
+        if (state is LoginSuccess) {
+          context.go('/');
+        } else if (state is LoginFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
+              backgroundColor: Colors.red,
+            ),
+          );
         }
       },
       child: Scaffold(
@@ -43,34 +62,35 @@ class _LoginPageState extends State<LoginPage> {
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 32),
-
               TextField(
                 controller: emailController,
                 decoration: const InputDecoration(labelText: 'Email'),
+                keyboardType: TextInputType.emailAddress,
               ),
-
               const SizedBox(height: 16),
-
               TextField(
                 controller: passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(labelText: 'Password'),
               ),
-
               const SizedBox(height: 32),
-
-              ElevatedButton(
-                onPressed: () {
-                  context.read<AuthCubit>().signIn(
-                    emailController.text.trim(),
-                    passwordController.text.trim(),
+              BlocBuilder<LoginCubit, LoginState>(
+                builder: (context, state) {
+                  if (state is LoginLoading) {
+                    return const CircularProgressIndicator();
+                  }
+                  return ElevatedButton(
+                    onPressed: () {
+                      context.read<LoginCubit>().login(
+                            emailController.text.trim(),
+                            passwordController.text.trim(),
+                          );
+                    },
+                    child: const Text('Log in'),
                   );
                 },
-                child: const Text('Log in'),
               ),
-
               const SizedBox(height: 16),
-
               TextButton(
                 onPressed: () {
                   Navigator.push(

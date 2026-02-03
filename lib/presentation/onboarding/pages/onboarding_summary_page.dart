@@ -11,19 +11,79 @@ class OnboardingSummaryPage extends StatelessWidget {
     return BlocListener<OnboardingCubit, OnboardingState>(
       listener: (context, state) {
         if (state is OnboardingCompleted) {
-          if (!context.mounted) return;
           context.go('/auth');
         }
       },
       child: Scaffold(
-        body: Center(
-          child: ElevatedButton(
-            onPressed: () {
-              context.read<OnboardingCubit>().completeOnboarding();
-            },
-            child: const Text('Klar!'),
-          ),
+        appBar: AppBar(title: const Text('Setup Complete')),
+        body: BlocBuilder<OnboardingCubit, OnboardingState>(
+          builder: (context, state) {
+            return Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.check_circle_outline,
+                    size: 100,
+                    color: Colors.green,
+                  ),
+                  const SizedBox(height: 24),
+                  const Text(
+                    'You are ready!',
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Here is a summary of your configuration:',
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 32),
+                  _buildSummaryItem(
+                    'Analytics',
+                    state.analytics ? 'Enabled' : 'Disabled',
+                  ),
+                  _buildSummaryItem(
+                    'Crashlytics',
+                    state.crashlytics ? 'Enabled' : 'Disabled',
+                  ),
+                  _buildSummaryItem(
+                    'Location',
+                    state.location ? 'Enabled' : 'Disabled',
+                  ),
+                  const SizedBox(height: 48),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(200, 50),
+                    ),
+                    onPressed: () {
+                      context.read<OnboardingCubit>().completeOnboarding();
+                    },
+                    child: const Text('Initialize Terminal'),
+                  ),
+                ],
+              ),
+            );
+          },
         ),
+      ),
+    );
+  }
+
+  Widget _buildSummaryItem(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            value,
+            style: TextStyle(
+              color: value == 'Enabled' ? Colors.green : Colors.red,
+            ),
+          ),
+        ],
       ),
     );
   }
