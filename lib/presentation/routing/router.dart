@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:herodex/domain/entities/hero_entity.dart';
+import 'package:herodex/domain/use_cases/delete_hero_usecase.dart';
+import 'package:herodex/domain/use_cases/search_heroes_usecase.dart';
+import 'package:herodex/domain/use_cases/save_hero_usecase.dart';
 import 'package:herodex/injection.dart';
 
 // Pages
@@ -27,16 +30,23 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state, child) => AppShell(child: child),
       routes: [
         GoRoute(path: '/', builder: (context, state) => const HomePage()),
+
         GoRoute(
           path: '/search',
           builder: (context, state) {
             return BlocProvider(
-              create: (_) => SearchCubit(getIt()),
+              create: (_) => SearchCubit(
+                getIt<SearchHeroesUseCase>(),
+                getIt<SaveHeroUseCase>(),
+                getIt<DeleteHeroUseCase>(),
+              ),
               child: const SearchPage(),
             );
           },
         ),
+
         GoRoute(path: '/saved', builder: (context, state) => const SavedPage()),
+
         GoRoute(
           path: '/settings',
           builder: (context, state) => const SettingsPage(),

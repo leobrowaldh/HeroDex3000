@@ -1,25 +1,35 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:herodex/domain/entities/hero_entity.dart';
 import 'package:herodex/domain/use_cases/search_heroes_usecase.dart';
+import 'package:herodex/domain/use_cases/save_hero_usecase.dart';
+import 'package:herodex/domain/use_cases/delete_hero_usecase.dart';
 import 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
   final SearchHeroesUseCase _searchHeroesUseCase;
+  final SaveHeroUseCase _saveHeroUseCase;
+  final DeleteHeroUseCase _deleteHeroUseCase;
+
   Timer? _debounce;
 
-  SearchCubit(this._searchHeroesUseCase) : super(SearchInitial());
+  SearchCubit(
+    this._searchHeroesUseCase,
+    this._saveHeroUseCase,
+    this._deleteHeroUseCase,
+  ) : super(SearchInitial());
 
+  // -----------------------------
+  // SEARCH WITH DEBOUNCE
+  // -----------------------------
   void search(String query) {
-    // Cancel previous timer
     _debounce?.cancel();
 
-    // If empty → reset immediately
     if (query.isEmpty) {
       emit(SearchInitial());
       return;
     }
 
-    // Start debounce timer
     _debounce = Timer(const Duration(milliseconds: 900), () async {
       emit(SearchLoading());
 
@@ -37,6 +47,52 @@ class SearchCubit extends Cubit<SearchState> {
     });
   }
 
+  // -----------------------------
+  // TOGGLE SAVE / UNSAVE
+  // -----------------------------
+  Future<void> toggleSave(HeroEntity hero) async {
+    try {
+      if (hero.isSaved) {
+        // UNSAVE
+        await _deleteHeroUseCase(hero.localId!);
+
+        if (state is SearchSuccess) {
+          final current = (state as SearchSuccess).heroes;
+
+          final updated = current.map((h) {
+            if (h.externalId == hero.externalId) {
+              return h.copyWithLocalId(null); // UI: unsaved
+            }
+            return h;
+          }).toList();
+
+          emit(SearchSuccess(updated));
+        }
+      } else {
+        // SAVE
+        await _saveHeroUseCase(hero);
+
+        if (state is SearchSuccess) {
+          final current = (state as SearchSuccess).heroes;
+
+          final updated = current.map((h) {
+            if (h.externalId == hero.externalId) {
+              return h.copyWithLocalId("saved-ui"); // UI: saved
+            }
+            return h;
+          }).toList();
+
+          emit(SearchSuccess(updated));
+        }
+      }
+    } catch (e) {
+      emit(SearchError(e.toString()));
+    }
+  }
+
+  // -----------------------------
+  // RESET
+  // -----------------------------
   void reset() {
     emit(SearchInitial());
   }

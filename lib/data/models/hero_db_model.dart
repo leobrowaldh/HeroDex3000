@@ -1,6 +1,6 @@
 class HeroDbModel {
-  final String id; // DB id
-  final String? externalId; // API id
+  final String id; // Firebase document ID
+  final String? externalId;
 
   final String name;
   final String? fullName;
@@ -66,9 +66,11 @@ class HeroDbModel {
     this.updatedAt,
   });
 
-  factory HeroDbModel.fromJson(Map<String, dynamic> json) {
+  /// Firebase does NOT include the document ID inside the JSON.
+  /// So we must pass it in manually.
+  factory HeroDbModel.fromJson(String id, Map<String, dynamic> json) {
     return HeroDbModel(
-      id: json['id'],
+      id: id,
       externalId: json['externalId'],
       name: json['name'],
       fullName: json['fullName'],
@@ -100,6 +102,7 @@ class HeroDbModel {
     );
   }
 
+  /// Firebase stores the ID separately, so we do NOT include it here.
   Map<String, dynamic> toJson() {
     return {
       'externalId': externalId,

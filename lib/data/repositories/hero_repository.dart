@@ -22,6 +22,9 @@ class HeroRepository implements IHeroRepository {
   }) : _httpClient = httpClient,
        _localDb = localDb;
 
+  // ------------------------------------------------------------
+  // SEARCH HEROES (API + DB MERGE)
+  // ------------------------------------------------------------
   @override
   Future<List<HeroEntity>> searchHeroes(String query) async {
     // 1. Fetch from API
@@ -60,12 +63,18 @@ class HeroRepository implements IHeroRepository {
     return domainResults;
   }
 
+  // ------------------------------------------------------------
+  // GET SAVED HEROES
+  // ------------------------------------------------------------
   @override
   Future<List<HeroEntity>> getSavedHeroes() async {
     final savedDbHeroes = await _localDb.getAllHeroes();
     return savedDbHeroes.map(HeroMapper.fromDb).toList();
   }
 
+  // ------------------------------------------------------------
+  // SAVE HERO
+  // ------------------------------------------------------------
   @override
   Future<void> saveHero(HeroEntity hero) async {
     final externalId = hero.externalId;
@@ -80,13 +89,19 @@ class HeroRepository implements IHeroRepository {
       );
     }
 
+    // Generate local DB id
     final localId = const Uuid().v4();
 
+    // Convert API → DB model
     final dbModel = HeroMapper.apiToDb(apiHero, localId: localId);
 
+    // Save to local DB
     await _localDb.saveHero(dbModel);
   }
 
+  // ------------------------------------------------------------
+  // DELETE HERO
+  // ------------------------------------------------------------
   @override
   Future<void> deleteHero(String id) async {
     await _localDb.deleteHero(id);

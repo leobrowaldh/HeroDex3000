@@ -42,13 +42,16 @@ class _SearchPageState extends State<SearchPage> {
                         onPressed: () {
                           _searchController.clear();
                           context.read<SearchCubit>().reset();
-                          setState(() {});
+                          setState(
+                            () {},
+                          ); // <-- behövs för att gömma clear-knappen
                         },
                       )
                     : null,
               ),
               onChanged: (value) {
                 context.read<SearchCubit>().search(value);
+                setState(() {}); // <-- uppdaterar suffixIcon
               },
             ),
           ),
@@ -69,7 +72,14 @@ class _SearchPageState extends State<SearchPage> {
                   return ListView.builder(
                     itemCount: state.heroes.length,
                     itemBuilder: (context, index) {
-                      return HeroCard(hero: state.heroes[index]);
+                      final hero = state.heroes[index];
+
+                      return HeroCard(
+                        hero: hero,
+                        onBookmark: () {
+                          context.read<SearchCubit>().toggleSave(hero);
+                        },
+                      );
                     },
                   );
                 }

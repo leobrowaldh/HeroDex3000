@@ -1,11 +1,12 @@
-import 'package:flutter/material.dart' hide Hero;
+import 'package:flutter/material.dart';
 import 'package:herodex/domain/entities/hero_entity.dart';
 
 class HeroCard extends StatelessWidget {
   final HeroEntity hero;
   final VoidCallback? onTap;
+  final VoidCallback? onBookmark;
 
-  const HeroCard({super.key, required this.hero, this.onTap});
+  const HeroCard({super.key, required this.hero, this.onTap, this.onBookmark});
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +18,7 @@ class HeroCard extends StatelessWidget {
           padding: const EdgeInsets.all(12.0),
           child: Row(
             children: [
+              // IMAGE
               if (hero.imageUrl != null)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
@@ -25,17 +27,6 @@ class HeroCard extends StatelessWidget {
                     width: 80,
                     height: 80,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        width: 80,
-                        height: 80,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Icon(Icons.person),
-                      );
-                    },
                   ),
                 )
               else
@@ -48,7 +39,10 @@ class HeroCard extends StatelessWidget {
                   ),
                   child: const Icon(Icons.person),
                 ),
+
               const SizedBox(width: 12),
+
+              // TEXT
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,17 +50,12 @@ class HeroCard extends StatelessWidget {
                     Text(
                       hero.name,
                       style: Theme.of(context).textTheme.titleMedium,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
                     ),
                     if (hero.fullName != null)
                       Text(
                         hero.fullName!,
                         style: Theme.of(context).textTheme.bodySmall,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
                       ),
-                    const SizedBox(height: 4),
                     Text(
                       'Alignment: ${hero.alignment.name}',
                       style: Theme.of(context).textTheme.bodySmall,
@@ -75,16 +64,18 @@ class HeroCard extends StatelessWidget {
                       Text(
                         hero.publisher!,
                         style: Theme.of(context).textTheme.bodySmall,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
                       ),
                   ],
                 ),
               ),
-              if (hero.isSaved)
-                const Icon(Icons.bookmark, color: Colors.amber)
-              else
-                const Icon(Icons.bookmark_outline),
+
+              // BOOKMARK BUTTON
+              IconButton(
+                icon: hero.isSaved
+                    ? const Icon(Icons.bookmark, color: Colors.amber)
+                    : const Icon(Icons.bookmark_outline),
+                onPressed: onBookmark,
+              ),
             ],
           ),
         ),

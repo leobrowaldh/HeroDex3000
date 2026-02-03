@@ -18,15 +18,23 @@ class LocalDb implements ILocalDb {
   @override
   Future<List<HeroDbModel>> getAllHeroes() async {
     final snapshot = await _collection.get();
-    return snapshot.docs
-        .map((doc) => HeroDbModel.fromJson(doc.data()))
-        .toList();
+
+    return snapshot.docs.map((doc) {
+      return HeroDbModel.fromJson(
+        doc.id, // <-- Firebase document ID
+        doc.data(), // <-- JSON map
+      );
+    }).toList();
   }
 
   @override
   Future<HeroDbModel?> getHeroByLocalId(String localId) async {
     final doc = await _collection.doc(localId).get();
     if (!doc.exists) return null;
-    return HeroDbModel.fromJson(doc.data()!);
+
+    return HeroDbModel.fromJson(
+      doc.id, // <-- Firebase document ID
+      doc.data()!, // <-- JSON map
+    );
   }
 }

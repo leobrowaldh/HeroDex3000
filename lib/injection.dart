@@ -13,29 +13,59 @@ import 'package:herodex/domain/use_cases/get_saved_heroes_usecase.dart';
 import 'package:herodex/domain/use_cases/save_hero_usecase.dart';
 import 'package:herodex/domain/use_cases/search_heroes_usecase.dart';
 import 'package:herodex/presentation/onboarding/services/onboarding_service.dart';
+import 'package:herodex/presentation/search/cubit/search_cubit.dart';
 
 final getIt = GetIt.instance;
 
 void setupDependencies() {
+  // -----------------------------
+  // DATA SOURCES
+  // -----------------------------
   getIt.registerLazySingleton<IHeroHttpClient>(() => HeroHttpClient());
   getIt.registerLazySingleton<ILocalDb>(() => LocalDb());
+
+  // -----------------------------
+  // REPOSITORY
+  // -----------------------------
   getIt.registerLazySingleton<IHeroRepository>(
     () => HeroRepository(
       httpClient: getIt<IHeroHttpClient>(),
       localDb: getIt<ILocalDb>(),
     ),
   );
+
+  // -----------------------------
+  // USE CASES
+  // -----------------------------
   getIt.registerLazySingleton<SearchHeroesUseCase>(
     () => SearchHeroesUseCase(getIt<IHeroRepository>()),
   );
+
   getIt.registerLazySingleton<GetSavedHeroesUseCase>(
     () => GetSavedHeroesUseCase(getIt<IHeroRepository>()),
   );
+
   getIt.registerLazySingleton<SaveHeroUseCase>(
     () => SaveHeroUseCase(getIt<IHeroRepository>()),
   );
+
   getIt.registerLazySingleton<DeleteHeroUseCase>(
     () => DeleteHeroUseCase(getIt<IHeroRepository>()),
   );
+
+  // -----------------------------
+  // SERVICES
+  // -----------------------------
   getIt.registerLazySingleton<OnboardingService>(() => OnboardingService());
+
+  // -----------------------------
+  // CUBITS
+  // -----------------------------
+  getIt.registerFactory<SearchCubit>(
+    () => SearchCubit(
+      getIt<SearchHeroesUseCase>(),
+      getIt<SaveHeroUseCase>(),
+      getIt<DeleteHeroUseCase>(),
+    ),
+  );
 }

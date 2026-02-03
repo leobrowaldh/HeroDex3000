@@ -70,4 +70,20 @@ class HeroEntity {
   });
 
   bool get isSaved => localId != null;
+
+  HeroEntity copyWithLocalId(String? newLocalId) {
+    return HeroEntity(
+      localId: newLocalId,
+      externalId: externalId,
+      name: name,
+      fullName: fullName,
+      publisher: publisher,
+      alignment: alignment,
+      imageUrl: imageUrl,
+      stats: stats,
+      lastKnownBattleLocation: lastKnownBattleLocation,
+      createdAt: createdAt,
+      updatedAt: DateTime.now(),
+    );
+  }
 }
