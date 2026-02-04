@@ -42,15 +42,18 @@ class HeroDetailPage extends StatelessWidget {
                   child: Icon(Icons.person, size: 100, color: Colors.grey[600]),
                 ),
               ),
+
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // NAME
                   Text(
                     hero.name,
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
+
                   if (hero.fullName != null)
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
@@ -61,17 +64,26 @@ class HeroDetailPage extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
+
                   const SizedBox(height: 16),
+
+                  // INFO CARDS
                   _buildInfoCard(
                     context,
                     'Publisher',
                     hero.publisher ?? 'Unknown',
                   ),
                   const SizedBox(height: 12),
+
                   _buildInfoCard(context, 'Alignment', hero.alignment.name),
+
                   const SizedBox(height: 24),
+
+                  // STATS TITLE
                   Text('Stats', style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(height: 12),
+
+                  // STAT BARS
                   _buildStatBar(context, 'Strength', hero.stats.strength),
                   _buildStatBar(
                     context,
@@ -82,30 +94,40 @@ class HeroDetailPage extends StatelessWidget {
                   _buildStatBar(context, 'Durability', hero.stats.durability),
                   _buildStatBar(context, 'Power', hero.stats.power),
                   _buildStatBar(context, 'Combat', hero.stats.combat),
+
                   const SizedBox(height: 16),
+
+                  // FIGHTING POWER BOX (FIXED)
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: Colors.blue[50],
+                      color: Colors.blue[100], // darker for contrast
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
                       children: [
                         Text(
-                          'Fighting Power: ',
-                          style: Theme.of(context).textTheme.bodyMedium,
+                          'Fighting Power:',
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue[900], // strong contrast
+                              ),
                         ),
+                        const SizedBox(width: 6),
                         Text(
                           '${hero.stats.fightingPower}',
                           style: Theme.of(context).textTheme.titleMedium
                               ?.copyWith(
-                                color: Colors.blue,
+                                color: Colors.blue[900],
                                 fontWeight: FontWeight.bold,
                               ),
                         ),
                       ],
                     ),
                   ),
+
+                  // LAST KNOWN BATTLE LOCATION
                   if (hero.lastKnownBattleLocation != null)
                     Padding(
                       padding: const EdgeInsets.only(top: 24.0),
@@ -134,6 +156,7 @@ class HeroDetailPage extends StatelessWidget {
     );
   }
 
+  // INFO CARD FIXED (value text now darker)
   Widget _buildInfoCard(BuildContext context, String label, String value) {
     return Container(
       padding: const EdgeInsets.all(12),
@@ -152,15 +175,17 @@ class HeroDetailPage extends StatelessWidget {
           ),
           Text(
             value,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: Colors.black87, // FIXED
+            ),
           ),
         ],
       ),
     );
   }
 
+  // STAT BAR (unchanged)
   Widget _buildStatBar(BuildContext context, String label, int value) {
     final maxValue = 100;
     final percentage = (value / maxValue).clamp(0.0, 1.0);

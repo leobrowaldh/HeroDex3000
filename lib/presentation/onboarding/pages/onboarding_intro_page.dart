@@ -21,15 +21,13 @@ class OnboardingIntroPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             const Text(
-              'The world needs a new generation of heroes.\nLet\'s set up your terminal.',
+              'Think of a hero — any hero — and add them to your growing roster.\n\nMeasure your team’s power and shape your own legendary squad.',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 48),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(200, 50),
-              ),
+              style: ElevatedButton.styleFrom(minimumSize: const Size(200, 50)),
               onPressed: () => context.go('/onboarding/permissions'),
               child: const Text('Start Setup'),
             ),

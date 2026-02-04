@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:herodex/presentation/search/cubit/search_cubit.dart';
 import 'package:herodex/presentation/search/cubit/search_state.dart';
 import 'package:herodex/presentation/search/widgets/hero_card.dart';
+import 'package:go_router/go_router.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -28,30 +29,31 @@ class _SearchPageState extends State<SearchPage> {
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                hintText: 'Search heroes...',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                suffixIcon: _searchController.text.isNotEmpty
-                    ? IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () {
-                          _searchController.clear();
-                          context.read<SearchCubit>().reset();
-                          setState(
-                            () {},
-                          ); // <-- behövs för att gömma clear-knappen
-                        },
-                      )
-                    : null,
-              ),
-              onChanged: (value) {
-                context.read<SearchCubit>().search(value);
-                setState(() {}); // <-- uppdaterar suffixIcon
+            child: ValueListenableBuilder<TextEditingValue>(
+              valueListenable: _searchController,
+              builder: (context, value, _) {
+                return TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    hintText: 'Search heroes...',
+                    prefixIcon: const Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    suffixIcon: value.text.isNotEmpty
+                        ? IconButton(
+                            icon: const Icon(Icons.clear),
+                            onPressed: () {
+                              _searchController.clear();
+                              context.read<SearchCubit>().reset();
+                            },
+                          )
+                        : null,
+                  ),
+                  onChanged: (text) {
+                    context.read<SearchCubit>().search(text);
+                  },
+                );
               },
             ),
           ),
@@ -70,12 +72,17 @@ class _SearchPageState extends State<SearchPage> {
 
                 if (state is SearchSuccess) {
                   return ListView.builder(
+                    cacheExtent: 1000,
+                    physics: const BouncingScrollPhysics(),
                     itemCount: state.heroes.length,
                     itemBuilder: (context, index) {
                       final hero = state.heroes[index];
 
                       return HeroCard(
                         hero: hero,
+                        onTap: () {
+                          context.push('/details', extra: hero);
+                        },
                         onBookmark: () {
                           context.read<SearchCubit>().toggleSave(hero);
                         },
