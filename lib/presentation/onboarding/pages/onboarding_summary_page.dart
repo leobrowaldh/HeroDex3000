@@ -23,10 +23,10 @@ class OnboardingSummaryPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.check_circle_outline,
                     size: 100,
-                    color: Colors.green,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   const SizedBox(height: 24),
                   const Text(
@@ -40,14 +40,17 @@ class OnboardingSummaryPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 32),
                   _buildSummaryItem(
+                    context,
                     'Analytics',
                     state.analytics ? 'Enabled' : 'Disabled',
                   ),
                   _buildSummaryItem(
+                    context,
                     'Crashlytics',
                     state.crashlytics ? 'Enabled' : 'Disabled',
                   ),
                   _buildSummaryItem(
+                    context,
                     'Location',
                     state.location ? 'Enabled' : 'Disabled',
                   ),
@@ -70,7 +73,7 @@ class OnboardingSummaryPage extends StatelessWidget {
     );
   }
 
-  Widget _buildSummaryItem(String label, String value) {
+  Widget _buildSummaryItem(BuildContext context, String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -80,7 +83,9 @@ class OnboardingSummaryPage extends StatelessWidget {
           Text(
             value,
             style: TextStyle(
-              color: value == 'Enabled' ? Colors.green : Colors.red,
+              color: value == 'Enabled'
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).colorScheme.error,
             ),
           ),
         ],

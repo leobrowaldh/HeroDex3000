@@ -43,7 +43,7 @@ class StatsCard extends StatelessWidget {
                   Text(
                     title,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: Colors.grey[700],
+                          color: Theme.of(context).textTheme.bodySmall?.color,
                         ),
                   ),
                   const SizedBox(height: 4),

@@ -18,7 +18,7 @@ class HeroDetailPage extends StatelessWidget {
               Container(
                 width: double.infinity,
                 height: 300,
-                decoration: BoxDecoration(color: Colors.grey[300]),
+                decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerHighest),
                 child: Image.network(
                   hero.imageUrl!,
                   fit: BoxFit.cover,
@@ -27,7 +27,7 @@ class HeroDetailPage extends StatelessWidget {
                       child: Icon(
                         Icons.person,
                         size: 100,
-                        color: Colors.grey[600],
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                     );
                   },
@@ -37,9 +37,9 @@ class HeroDetailPage extends StatelessWidget {
               Container(
                 width: double.infinity,
                 height: 300,
-                color: Colors.grey[300],
+                color: Theme.of(context).colorScheme.surfaceContainerHighest,
                 child: Center(
-                  child: Icon(Icons.person, size: 100, color: Colors.grey[600]),
+                  child: Icon(Icons.person, size: 100, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
               ),
 
@@ -101,7 +101,7 @@ class HeroDetailPage extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: Colors.blue[100], // darker for contrast
+                      color: Theme.of(context).colorScheme.primaryContainer,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
@@ -111,7 +111,7 @@ class HeroDetailPage extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.blue[900], // strong contrast
+                                color: Theme.of(context).colorScheme.onPrimaryContainer,
                               ),
                         ),
                         const SizedBox(width: 6),
@@ -119,7 +119,7 @@ class HeroDetailPage extends StatelessWidget {
                           '${hero.stats.fightingPower}',
                           style: Theme.of(context).textTheme.titleMedium
                               ?.copyWith(
-                                color: Colors.blue[900],
+                                color: Theme.of(context).colorScheme.onPrimaryContainer,
                                 fontWeight: FontWeight.bold,
                               ),
                         ),
@@ -161,7 +161,7 @@ class HeroDetailPage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.grey[100],
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
@@ -171,13 +171,13 @@ class HeroDetailPage extends StatelessWidget {
             label,
             style: Theme.of(
               context,
-            ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
+            ).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
           ),
           Text(
             value,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              color: Colors.black87, // FIXED
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
         ],

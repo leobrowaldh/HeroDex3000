@@ -14,12 +14,12 @@ class HeroCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
+        color: Theme.of(context).cardColor,
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Row(
             children: [
-              // IMAGE
               if (hero.imageUrl != null)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
@@ -28,12 +28,12 @@ class HeroCard extends StatelessWidget {
                     width: 80,
                     height: 80,
                     fit: BoxFit.cover,
-                    memCacheWidth: 200, // Optimize memory usage
+                    memCacheWidth: 200,
                     memCacheHeight: 200,
                     placeholder: (context, url) => Container(
                       width: 80,
                       height: 80,
-                      color: Colors.grey[200],
+                      color: Theme.of(context).colorScheme.surface,
                       child: const Center(
                         child: CircularProgressIndicator(strokeWidth: 2),
                       ),
@@ -41,8 +41,11 @@ class HeroCard extends StatelessWidget {
                     errorWidget: (context, url, error) => Container(
                       width: 80,
                       height: 80,
-                      color: Colors.grey[300],
-                      child: const Icon(Icons.broken_image),
+                      color: Theme.of(context).colorScheme.surface,
+                      child: Icon(
+                        Icons.broken_image,
+                        color: Theme.of(context).iconTheme.color,
+                      ),
                     ),
                   ),
                 )
@@ -51,15 +54,17 @@ class HeroCard extends StatelessWidget {
                   width: 80,
                   height: 80,
                   decoration: BoxDecoration(
-                    color: Colors.grey[300],
+                    color: Theme.of(context).colorScheme.surface,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Icon(Icons.person),
+                  child: Icon(
+                    Icons.person,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
                 ),
 
               const SizedBox(width: 12),
 
-              // TEXT
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,24 +93,28 @@ class HeroCard extends StatelessWidget {
 
                     const SizedBox(height: 6),
 
-                    // BASIC STATS
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _stat('STR', hero.stats.strength),
-                        _stat('SPD', hero.stats.speed),
-                        _stat('POW', hero.stats.power),
+                        _stat(context, 'STR', hero.stats.strength),
+                        _stat(context, 'SPD', hero.stats.speed),
+                        _stat(context, 'POW', hero.stats.power),
                       ],
                     ),
                   ],
                 ),
               ),
 
-              // BOOKMARK BUTTON
               IconButton(
                 icon: hero.isSaved
-                    ? const Icon(Icons.bookmark, color: Colors.amber)
-                    : const Icon(Icons.bookmark_outline),
+                    ? Icon(
+                        Icons.bookmark,
+                        color: Theme.of(context).colorScheme.primary,
+                      )
+                    : Icon(
+                        Icons.bookmark_outline,
+                        color: Theme.of(context).iconTheme.color,
+                      ),
                 onPressed: onBookmark,
               ),
             ],
@@ -116,8 +125,7 @@ class HeroCard extends StatelessWidget {
   }
 }
 
-Widget _stat(String label, int value) {
-  // Clamp value between 0–100 just in case
+Widget _stat(BuildContext context, String label, int value) {
   final normalized = value.clamp(0, 100);
 
   return Column(
@@ -129,13 +137,11 @@ Widget _stat(String label, int value) {
       ),
       Text(value.toString(), style: const TextStyle(fontSize: 12)),
       const SizedBox(height: 2),
-
-      // Indicator bar
       Container(
         width: 40,
         height: 4,
         decoration: BoxDecoration(
-          color: Colors.grey[300],
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(2),
         ),
         child: FractionallySizedBox(
@@ -143,7 +149,7 @@ Widget _stat(String label, int value) {
           widthFactor: normalized / 100,
           child: Container(
             decoration: BoxDecoration(
-              color: _statColor(label),
+              color: _statColor(context, label),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -153,15 +159,15 @@ Widget _stat(String label, int value) {
   );
 }
 
-Color _statColor(String label) {
+Color _statColor(BuildContext context, String label) {
   switch (label) {
     case 'STR':
-      return Colors.redAccent; // strength
+      return Theme.of(context).colorScheme.error;
     case 'SPD':
-      return Colors.blueAccent; // speed
+      return Theme.of(context).colorScheme.primary;
     case 'POW':
-      return Colors.amberAccent; // power
+      return Theme.of(context).colorScheme.secondary;
     default:
-      return Colors.grey;
+      return Theme.of(context).disabledColor;
   }
 }

@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
                             title: 'Heroes',
                             count: state.heroCount,
                             icon: Icons.shield,
-                            color: Colors.blueAccent,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                         const SizedBox(width: 16),
@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
                             title: 'Villains',
                             count: state.villainCount,
                             icon: Icons.warning_amber_rounded,
-                            color: Colors.redAccent,
+                            color: Theme.of(context).colorScheme.error,
                           ),
                         ),
                       ],
@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
                       title: 'Total Fighting Power',
                       value: state.totalPower.toString(),
                       icon: Icons.bolt,
-                      accentColor: Colors.amber,
+                      accentColor: Theme.of(context).colorScheme.secondary,
                     ),
 
                     const SizedBox(height: 32),
@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
                     // --- INVASION STATUS ---
                     Row(
                       children: [
-                        const Icon(Icons.public, color: Colors.blueGrey),
+                        Icon(Icons.public, color: Theme.of(context).colorScheme.onSurfaceVariant),
                         const SizedBox(width: 8),
                         Text(
                           'Latest War Updates',
@@ -90,10 +90,10 @@ class HomePage extends StatelessWidget {
                           leading: Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              color: Colors.blueGrey.withValues(alpha: 0.1),
+                              color: Theme.of(context).colorScheme.surfaceContainerHighest,
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(update.icon, color: Colors.blueGrey[700]),
+                            child: Icon(update.icon, color: Theme.of(context).colorScheme.onSurfaceVariant),
                           ),
                           title: Text(
                             update.title,

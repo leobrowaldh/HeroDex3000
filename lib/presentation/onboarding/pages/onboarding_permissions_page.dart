@@ -24,6 +24,7 @@ class OnboardingPermissionsPage extends StatelessWidget {
                 const SizedBox(height: 32),
 
                 _buildSwitch(
+                  context: context,
                   title: 'Analytics',
                   subtitle: 'Help us improve by sending usage data.',
                   value: state.analytics,
@@ -33,6 +34,7 @@ class OnboardingPermissionsPage extends StatelessWidget {
                 const Divider(),
 
                 _buildSwitch(
+                  context: context,
                   title: 'Crashlytics',
                   subtitle: 'Send crash reports automatically.',
                   value: state.crashlytics,
@@ -42,6 +44,7 @@ class OnboardingPermissionsPage extends StatelessWidget {
                 const Divider(),
 
                 _buildSwitch(
+                  context: context,
                   title: 'Location (Optional)',
                   subtitle: 'Enable location services for better intel.',
                   value: state.location,
@@ -69,6 +72,7 @@ class OnboardingPermissionsPage extends StatelessWidget {
   }
 
   Widget _buildSwitch({
+    required BuildContext context,
     required String title,
     required String subtitle,
     required bool value,
@@ -79,7 +83,7 @@ class OnboardingPermissionsPage extends StatelessWidget {
       subtitle: Text(subtitle),
       value: value,
       onChanged: onChanged,
-      activeColor: Colors.blueAccent,
+      activeThumbColor: Theme.of(context).colorScheme.primary,
     );
   }
 }
