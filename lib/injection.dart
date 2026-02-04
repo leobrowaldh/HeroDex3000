@@ -15,6 +15,9 @@ import 'package:herodex/domain/use_cases/search_heroes_usecase.dart';
 import 'package:herodex/presentation/onboarding/services/onboarding_service.dart';
 import 'package:herodex/presentation/saved/cubit/saved_cubit.dart';
 import 'package:herodex/presentation/search/cubit/search_cubit.dart';
+import 'package:herodex/presentation/theme/theme_service.dart';
+import 'package:herodex/presentation/theme/cubit/theme_cubit.dart';
+import 'package:herodex/presentation/settings/cubit/settings_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -75,5 +78,15 @@ void setupDependencies() {
       getSavedHeroesUseCase: getIt<GetSavedHeroesUseCase>(),
       deleteHeroUseCase: getIt<DeleteHeroUseCase>(),
     ),
+  );
+
+  getIt.registerLazySingleton<ThemeService>(() => ThemeService());
+
+  getIt.registerFactory<ThemeCubit>(
+    () => ThemeCubit(getIt<ThemeService>()),
+  );
+
+  getIt.registerFactory<SettingsCubit>(
+    () => SettingsCubit(getIt<OnboardingService>()),
   );
 }
