@@ -15,13 +15,21 @@ class MockAnalyticsService extends Mock implements AnalyticsService {}
 
 class MockCrashlyticsService extends Mock implements CrashlyticsService {}
 
+class MockUser extends Mock implements User {}
+
 class MockUserCredential extends Mock implements UserCredential {}
+
+class FakeStackTrace extends Fake implements StackTrace {}
 
 void main() {
   late MockFirebaseAuth mockAuth;
   late MockAnalyticsService mockAnalyticsService;
   late MockCrashlyticsService mockCrashlyticsService;
   late AuthRepository repo;
+
+  setUpAll(() {
+    registerFallbackValue(FakeStackTrace());
+  });
 
   setUp(() {
     mockAuth = MockFirebaseAuth();
@@ -39,16 +47,25 @@ void main() {
   // 1. signIn calls FirebaseAuth.signInWithEmailAndPassword
   // --------------------------------------------------
   test('signIn calls FirebaseAuth.signInWithEmailAndPassword', () async {
+    final mockUser = MockUser();
+    when(() => mockUser.uid).thenReturn('user123');
+    
+    final mockUserCredential = MockUserCredential();
+    when(() => mockUserCredential.user).thenReturn(mockUser);
+
     when(
       () => mockAuth.signInWithEmailAndPassword(
         email: any(named: 'email'),
         password: any(named: 'password'),
       ),
-    ).thenAnswer((_) async => MockUserCredential());
+    ).thenAnswer((_) async => mockUserCredential);
 
-    // Prevent analytics from throwing
+    // Prevent analytics and crashlytics from throwing
     when(
       () => mockAnalyticsService.logLoginPassword(),
+    ).thenAnswer((_) async => {});
+    when(
+      () => mockCrashlyticsService.setUserId(any()),
     ).thenAnswer((_) async => {});
 
     await repo.signIn(email: 'test@test.com', password: '123456');
@@ -91,5 +108,32 @@ void main() {
     await repo.signOut();
 
     verify(() => mockAuth.signOut()).called(1);
+  });
+
+  // --------------------------------------------------
+  // 4. signIn records error to Crashlytics on failure
+  // --------------------------------------------------
+  test('signIn records error to Crashlytics on failure', () async {
+    final authException = FirebaseAuthException(code: 'wrong-password');
+    
+    when(
+      () => mockAuth.signInWithEmailAndPassword(
+        email: any(named: 'email'),
+        password: any(named: 'password'),
+      ),
+    ).thenThrow(authException);
+
+    when(
+      () => mockCrashlyticsService.recordError(any(), any()),
+    ).thenAnswer((_) async => {});
+
+    expect(
+      () => repo.signIn(email: 'test@test.com', password: 'bad'),
+      throwsA(isA<AuthFailure>()),
+    );
+
+    verify(
+      () => mockCrashlyticsService.recordError(authException, any()),
+    ).called(1);
   });
 }

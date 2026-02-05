@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HeroDex - Hero Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b7cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 z-50 w-full flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 justify-between border-b border-slate-200 dark:border-slate-800">
+<div class="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 cursor-pointer">
+<span class="material-symbols-outlined">arrow_back_ios_new</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Hero Details</h2>
+<div class="flex w-10 items-center justify-end">
+<button class="flex size-10 items-center justify-center rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</nav>
+<main class="flex-1 pb-32 pt-16">
+<!-- Hero Image Section -->
+<div class="@container">
+<div class="@[480px]:px-4 @[480px]:py-3">
+<div class="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden bg-background-dark @[480px]:rounded-xl min-h-[400px] relative shadow-2xl" data-alt="Cinematic portrait of a powerful superhero in a dynamic pose" style='background-image: linear-gradient(to bottom, rgba(16,24,34,0) 50%, rgba(16,24,34,1) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuASpXTY27IZaR9zFfMC04ulvCLQNGB6Bein8H-3vXgxIBzHqpY0R5ss32gpbRev4GjlPrO2dPqCpUAe4OAYeBv699NIU5wnNsspH4huZTBc9c11P5i1qcKUYesyy19X0SwdMwsUzCkUaRn2tvCgVe_WtRmEVArCKcOeKa4CW4CQ_3OakAthFAG0lrtoYEJDztnwD3BEK1TmBxu2h7TZURG83AMYdQatfm0T6jXsT34hNBGSVURMz-19RcOz1dqpAtkIy4kvb7r72vow");'>
+</div>
+</div>
+</div>
+<!-- Identity & Headline -->
+<div class="px-4 -mt-12 relative z-10">
+<div class="flex justify-between items-end">
+<div>
+<h1 class="text-white tracking-light text-[40px] font-extrabold leading-tight">Spider-Man</h1>
+<p class="text-slate-400 text-base font-medium leading-normal">Peter Parker | New York City</p>
+</div>
+<div class="mb-2">
+<span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border border-primary/30">Active</span>
+</div>
+</div>
+</div>
+<!-- Affiliation Chips -->
+<div class="flex gap-2 p-4 flex-wrap overflow-x-auto">
+<div class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-slate-200 dark:bg-slate-800 px-4 transition-colors hover:bg-primary/10">
+<span class="material-symbols-outlined text-sm">groups</span>
+<p class="text-sm font-semibold">Avengers</p>
+</div>
+<div class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-slate-200 dark:bg-slate-800 px-4">
+<p class="text-sm font-semibold">Superhuman</p>
+</div>
+<div class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-slate-200 dark:bg-slate-800 px-4">
+<p class="text-sm font-semibold">Web-Slinging</p>
+</div>
+<div class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-slate-200 dark:bg-slate-800 px-4">
+<p class="text-sm font-semibold">Genius</p>
+</div>
+</div>
+<!-- Bio Description -->
+<div class="px-4 py-4">
+<h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">menu_book</span>
+                Biography
+            </h3>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed text-base">
+                Bitten by a radioactive spider, Peter Parker gained the proportional strength, speed, and agility of an arachnid. With a genius-level intellect and his self-made web-shooters, he protects the streets of Queens and the world as Spider-Man. Guided by the principle that "with great power there must also come great responsibility," he balances the struggles of a regular young adult with the life of a global hero.
+            </p>
+</div>
+<!-- Stats Section -->
+<div class="px-4 py-6">
+<h3 class="text-xl font-bold mb-5 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">monitoring</span>
+                Power Stats
+            </h3>
+<div class="space-y-6 bg-slate-100 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+<!-- Stat Item -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<span class="text-sm font-bold uppercase tracking-widest text-slate-500">Strength</span>
+<span class="text-sm font-bold text-primary">85%</span>
+</div>
+<div class="h-2 w-full bg-slate-300 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<!-- Stat Item -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<span class="text-sm font-bold uppercase tracking-widest text-slate-500">Agility</span>
+<span class="text-sm font-bold text-primary">98%</span>
+</div>
+<div class="h-2 w-full bg-slate-300 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 98%"></div>
+</div>
+</div>
+<!-- Stat Item -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<span class="text-sm font-bold uppercase tracking-widest text-slate-500">Intelligence</span>
+<span class="text-sm font-bold text-primary">92%</span>
+</div>
+<div class="h-2 w-full bg-slate-300 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 92%"></div>
+</div>
+</div>
+<!-- Stat Item -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<span class="text-sm font-bold uppercase tracking-widest text-slate-500">Durability</span>
+<span class="text-sm font-bold text-primary">70%</span>
+</div>
+<div class="h-2 w-full bg-slate-300 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 70%"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Action Bar & Navigation -->
+<div class="fixed bottom-0 w-full z-50">
+<!-- Add to Favorites Floating Button (Positioned relatively to the nav) -->
+<div class="flex justify-center -mb-8 relative z-20">
+<button class="flex items-center justify-center gap-2 bg-primary text-white px-8 py-4 rounded-full shadow-lg shadow-primary/40 active:scale-95 transition-transform font-bold text-lg">
+<span class="material-symbols-outlined fill-icon">favorite</span>
+                Add to Favorites
+            </button>
+</div>
+<!-- Tab Bar -->
+<div class="bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-xl border-t border-slate-200 dark:border-slate-800 px-6 pt-10 pb-6 flex justify-between items-center">
+<button class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Discover</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined fill-icon">shield</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Heroes</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">bookmarks</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Favorites</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Profile</span>
+</button>
+</div>
+</div>
+</body></html>

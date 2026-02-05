@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Onboarding Privacy - HeroDex</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b7cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-white antialiased">
+<div class="relative flex min-h-screen w-full flex-col bg-background-light dark:bg-background-dark overflow-x-hidden">
+<!-- TopAppBar Component -->
+<div class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between">
+<div class="text-primary flex size-12 shrink-0 items-center justify-start cursor-pointer">
+<span class="material-symbols-outlined" style="font-size: 24px;">arrow_back_ios</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">Privacy</h2>
+</div>
+<div class="flex flex-col grow px-6 pb-10">
+<!-- Headline Illustration -->
+<div class="flex w-full @container py-8 justify-center">
+<div class="relative w-full max-w-[280px] aspect-square flex items-center justify-center rounded-full bg-primary/10 border-2 border-dashed border-primary/30">
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-size: 80px; font-variation-settings: 'FILL' 0, 'wght' 200;">shield_person</span>
+</div>
+<!-- Small floating hero card elements for visual context -->
+<div class="absolute -top-2 -right-2 bg-background-dark border border-primary/40 p-2 rounded-lg shadow-xl">
+<span class="material-symbols-outlined text-primary" style="font-size: 24px;">bolt</span>
+</div>
+<div class="absolute bottom-4 -left-4 bg-background-dark border border-primary/40 p-2 rounded-lg shadow-xl">
+<span class="material-symbols-outlined text-primary" style="font-size: 24px;">auto_awesome</span>
+</div>
+</div>
+</div>
+<!-- HeadlineText Component -->
+<div class="flex flex-col items-center">
+<h1 class="text-slate-900 dark:text-white tracking-light text-[32px] font-bold leading-tight text-center pb-3 pt-6">Help us find your heroes</h1>
+</div>
+<!-- BodyText Components -->
+<div class="flex flex-col items-center space-y-4">
+<p class="text-slate-600 dark:text-slate-300 text-base font-normal leading-relaxed text-center px-2">
+                    HeroDex uses your activity to personalize your hero discovery feed and suggest stats relevant to your playstyle. Allowing tracking helps us show you heroes you'll love.
+                </p>
+<p class="text-slate-600 dark:text-slate-300 text-base font-normal leading-relaxed text-center px-2">
+                    On the next screen, you will see a system prompt. Please select <span class="font-bold text-slate-900 dark:text-white">'Allow'</span> to enable these personalized features.
+                </p>
+</div>
+<!-- Spacer to push content up and button down -->
+<div class="grow"></div>
+<!-- Primary Action Button -->
+<div class="flex flex-col w-full gap-4 pt-8">
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 bg-primary px-4 text-white text-base font-bold tracking-[0.015em] hover:bg-primary/90 transition-colors">
+<span class="truncate">Continue</span>
+</button>
+<button class="flex w-full cursor-pointer items-center justify-center h-10 px-4 text-slate-500 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors">
+<span class="truncate">Learn more about our privacy policy</span>
+</button>
+</div>
+<!-- iOS Home Indicator Safe Area Spacer -->
+<div class="h-6"></div>
+</div>
+</div>
+</body></html>

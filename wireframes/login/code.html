@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HeroDex - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b7cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark transition-colors duration-300">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<div class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between">
+<div class="text-primary flex size-12 shrink-0 items-center justify-center">
+<span class="material-symbols-outlined text-3xl">shield</span>
+</div>
+<h2 class="text-gray-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">HeroDex</h2>
+</div>
+<div class="flex flex-col items-center justify-center px-6 pt-10 pb-8">
+<div class="w-24 h-24 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-5xl">bolt</span>
+</div>
+<h1 class="text-gray-900 dark:text-white tracking-light text-[28px] font-bold leading-tight text-center">Welcome Back, Hero</h1>
+<p class="text-gray-500 dark:text-gray-400 text-base mt-2 text-center">Enter your credentials to access the database</p>
+</div>
+<div class="flex flex-col gap-4 px-6 py-3 max-w-md mx-auto w-full">
+<label class="flex flex-col w-full">
+<p class="text-gray-700 dark:text-gray-200 text-sm font-medium leading-normal pb-2 px-1">Email Address</p>
+<div class="flex w-full items-stretch rounded-xl overflow-hidden border border-gray-200 dark:border-[#3b4554] bg-white dark:bg-[#1c2027] focus-within:border-primary">
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-transparent h-14 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-[#9da8b9] p-[15px] text-base font-normal focus:ring-0" placeholder="hero@justice.com" type="email"/>
+<div class="text-gray-400 dark:text-[#9da8b9] flex items-center justify-center pr-[15px]">
+<span class="material-symbols-outlined">mail</span>
+</div>
+</div>
+</label>
+<label class="flex flex-col w-full">
+<div class="flex justify-between items-center pb-2 px-1">
+<p class="text-gray-700 dark:text-gray-200 text-sm font-medium leading-normal">Password</p>
+<button class="text-primary text-sm font-semibold hover:underline">Forgot Password?</button>
+</div>
+<div class="flex w-full items-stretch rounded-xl overflow-hidden border border-gray-200 dark:border-[#3b4554] bg-white dark:bg-[#1c2027] focus-within:border-primary">
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-transparent h-14 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-[#9da8b9] p-[15px] text-base font-normal focus:ring-0" placeholder="••••••••" type="password"/>
+<div class="text-gray-400 dark:text-[#9da8b9] flex items-center justify-center pr-[15px] cursor-pointer">
+<span class="material-symbols-outlined">visibility</span>
+</div>
+</div>
+</label>
+<div class="mt-4">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-primary/20 active:scale-[0.98]">
+                    Authorize Login
+                </button>
+</div>
+<div class="relative flex py-5 items-center">
+<div class="flex-grow border-t border-gray-200 dark:border-gray-800"></div>
+<span class="flex-shrink mx-4 text-gray-400 text-xs uppercase tracking-widest font-bold">OR</span>
+<div class="flex-grow border-t border-gray-200 dark:border-gray-800"></div>
+</div>
+<div class="flex gap-4">
+<button class="flex-1 flex items-center justify-center gap-2 border border-gray-200 dark:border-gray-800 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+<div class="w-6 h-6 bg-center bg-no-repeat bg-contain" data-alt="Google logo icon" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCE2JKOt7Tby7Ha5YHYVbd_7zrRDZIv3AUQa0D5yemZJ75U59yvj-3Xu_IcpIh-QI8d1hyFW_raRiEPLwbuGBoxs4lVatGIkVRV1_oSjz24DTCmojQ5eulnu9lueHOPM9EmJUMy8_yilELVQcXQlgqoVtzijm0WKncKXCusGcFLTkgGnZkpq6y4MBou0Ge1m_Tf23GqvTfCL-D_P55s3BA5lt6j9U8vutcjHJB3cCDvcfNaT7s0HxKti4Rr0p0B3zxr4Xn3aOh0pPgJ');"></div>
+<span class="text-sm font-medium text-gray-700 dark:text-white">Google</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-2 border border-gray-200 dark:border-gray-800 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+<div class="w-6 h-6 bg-center bg-no-repeat bg-contain" data-alt="Apple logo icon" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAk8kHIiq3KXcbmTeaQG4InPo4fAZBEJNucOz66rT9PSVYNWWrP3ECTJCB5HKibZIf6-5NYCvKBbTuZG8oBvd-suNdoqSFklzrpu6ObLD44keBQjXh4ST18bOHCS7PdCpiB6Le4XlpDlVg3Bzp8aaqo5HZWZw76BdHjwS13xrlZSGIS7YnVe0XDVsd-0lnn-0JVdrxTvPSeZDW5Rx23zCADXHZf6l7kQo4-kTihinW3I5RUnhq0N_p69tWlhQHjmhWX_U4gB2yx2kGK');"></div>
+<span class="text-sm font-medium text-gray-700 dark:text-white">Apple</span>
+</button>
+</div>
+</div>
+<div class="mt-auto pb-10 px-6 text-center">
+<p class="text-gray-500 dark:text-gray-400 text-sm">
+                New to the League? 
+                <button class="text-primary font-bold ml-1 hover:underline">Create Account</button>
+</p>
+</div>
+<div class="flex justify-center p-4">
+<div class="w-full max-w-[320px] h-48 bg-cover bg-center rounded-2xl opacity-40 grayscale" data-alt="Abstract superhero base dashboard background" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA9YcC88RRKr19crqUSieID5yNgBOGJRNqCasc7azcfupXSG6OhXTZi7SL969K_Kpq0BotUz9kkLHWs77E5fWQ1BDKsOBCJYyELFgbbZlCRdbajw3ym7QT63uRygv0pGqOcNyDPjNBqfPi9vi6iPBlbohixrhvVvBzj_bpbQBduN6-VIWkCoHwfupgasXduAfdSfKBuzDNANnAgwcFycQLfGTaXYH6ARb7tJhB3bYtvZjJPfLp5tPipiaPDyEeDuGNLBl77kxNGnkFi');"></div>
+</div>
+</div>
+</body></html>

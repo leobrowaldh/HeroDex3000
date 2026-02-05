@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Onboarding Permissions - HeroDex</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b7cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-white min-h-screen flex flex-col font-display">
+<!-- Top Navigation Bar -->
+<header class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10">
+<div class="text-white flex size-12 shrink-0 items-center justify-start cursor-pointer">
+<span class="material-symbols-outlined text-gray-400">arrow_back_ios</span>
+</div>
+<h2 class="text-gray-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">Permissions</h2>
+</header>
+<main class="flex-1 flex flex-col px-6">
+<!-- Hero/Icon Section -->
+<div class="flex justify-center pt-8 pb-4">
+<div class="size-20 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-white text-[48px]">security</span>
+</div>
+</div>
+<!-- Headline & Body Text -->
+<div class="text-center">
+<h1 class="text-gray-900 dark:text-white tracking-tight text-[32px] font-bold leading-tight pb-3">Power Up HeroDex</h1>
+<p class="text-gray-600 dark:text-[#9da8b9] text-base font-normal leading-relaxed pb-8 max-w-xs mx-auto">
+                To provide the best hero discovery experience, we’d like to collect some anonymous data.
+            </p>
+</div>
+<!-- List Items (Settings Group) -->
+<div class="space-y-1 bg-white dark:bg-[#1a232e] rounded-xl overflow-hidden shadow-sm">
+<!-- Analytics Toggle -->
+<div class="flex items-center gap-4 px-4 min-h-[80px] py-3 justify-between border-b border-gray-100 dark:border-gray-800">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center rounded-lg bg-primary/10 shrink-0 size-12">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-gray-900 dark:text-white text-base font-semibold leading-tight line-clamp-1">Enable Analytics</p>
+<p class="text-gray-500 dark:text-[#9da8b9] text-sm font-normal leading-tight mt-1 line-clamp-2">Helps us understand which heroes are trending</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-gray-200 dark:bg-[#282f39] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary transition-all">
+<div class="h-full w-[27px] rounded-full bg-white shadow-md"></div>
+<input checked="" class="invisible absolute peer" type="checkbox"/>
+</label>
+</div>
+</div>
+<!-- Crash Reporting Toggle -->
+<div class="flex items-center gap-4 px-4 min-h-[80px] py-3 justify-between">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center rounded-lg bg-primary/10 shrink-0 size-12">
+<span class="material-symbols-outlined">bug_report</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-gray-900 dark:text-white text-base font-semibold leading-tight line-clamp-1">Crash Reporting</p>
+<p class="text-gray-500 dark:text-[#9da8b9] text-sm font-normal leading-tight mt-1 line-clamp-2">Sends reports so we can fix bugs faster</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-gray-200 dark:bg-[#282f39] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary transition-all">
+<div class="h-full w-[27px] rounded-full bg-white shadow-md"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+</div>
+<!-- Privacy Notice -->
+<p class="text-center text-xs text-gray-500 dark:text-[#5c687a] mt-6 px-4">
+            Your data is encrypted and completely anonymous. Read our <a class="text-primary font-medium hover:underline" href="#">Privacy Policy</a>.
+        </p>
+</main>
+<!-- Bottom Action Area -->
+<footer class="p-6 pb-10 mt-auto">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl text-lg transition-colors shadow-lg shadow-primary/20">
+            Continue to HeroDex
+        </button>
+<button class="w-full mt-3 text-gray-500 dark:text-[#9da8b9] font-medium py-2 text-sm hover:text-gray-700 dark:hover:text-white transition-colors">
+            Not now
+        </button>
+</footer>
+</body></html>

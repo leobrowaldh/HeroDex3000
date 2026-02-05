@@ -195,6 +195,7 @@ void main() {
     );
 
     when(() => mockDb.getAllHeroes()).thenAnswer((_) async => []);
+    when(() => mockDb.getHeroByExternalId(any())).thenAnswer((_) async => null);
     when(() => mockDb.saveHero(any())).thenAnswer((_) async => {});
 
     await repo.searchHeroes('bat');

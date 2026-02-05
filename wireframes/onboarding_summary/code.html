@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Onboarding Summary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b7cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-white font-display">
+<div class="relative flex h-screen w-full flex-col max-w-[430px] mx-auto overflow-hidden border-x border-gray-800">
+<!-- Top App Bar -->
+<div class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between shrink-0">
+<div class="text-white flex size-12 shrink-0 items-center justify-start cursor-pointer">
+<span class="material-symbols-outlined text-white text-2xl">arrow_back_ios</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">Onboarding Summary</h2>
+</div>
+<!-- Main Content Area -->
+<div class="flex-1 overflow-y-auto px-4">
+<!-- Success State -->
+<div class="flex flex-col items-center gap-6 py-8">
+<div class="relative w-32 h-32 flex items-center justify-center bg-primary/20 rounded-full">
+<div class="absolute inset-0 bg-primary/10 rounded-full scale-125 blur-xl"></div>
+<span class="material-symbols-outlined text-primary text-6xl">verified</span>
+</div>
+<div class="flex max-w-[480px] flex-col items-center gap-2">
+<p class="text-white text-2xl font-bold leading-tight tracking-[-0.015em] text-center">Mission Ready!</p>
+<p class="text-gray-400 text-sm font-normal leading-normal max-w-[320px] text-center">
+                        Welcome to HeroDex. Your hero database is synchronized and your mission profile is ready to go.
+                    </p>
+</div>
+</div>
+<div class="h-px bg-white/10 my-4"></div>
+<!-- Summary Section Header -->
+<h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] pb-2 pt-4">Your Preferences</h3>
+<!-- Preference Chips -->
+<div class="flex gap-2 py-3 flex-wrap">
+<div class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-primary/20 border border-primary/30 pl-4 pr-4">
+<span class="material-symbols-outlined text-primary text-sm">bolt</span>
+<p class="text-white text-sm font-medium leading-normal">Strength</p>
+</div>
+<div class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-primary/20 border border-primary/30 pl-4 pr-4">
+<span class="material-symbols-outlined text-primary text-sm">air</span>
+<p class="text-white text-sm font-medium leading-normal">Flight</p>
+</div>
+<div class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-primary/20 border border-primary/30 pl-4 pr-4">
+<span class="material-symbols-outlined text-primary text-sm">shield</span>
+<p class="text-white text-sm font-medium leading-normal">Avengers</p>
+</div>
+<div class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-primary/20 border border-primary/30 pl-4 pr-4">
+<span class="material-symbols-outlined text-primary text-sm">auto_awesome</span>
+<p class="text-white text-sm font-medium leading-normal">Magic</p>
+</div>
+</div>
+<!-- Description List -->
+<div class="mt-4 rounded-xl bg-white/5 p-4 border border-white/10">
+<div class="flex justify-between gap-x-6 py-3 border-b border-white/5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-400 text-sm">category</span>
+<p class="text-gray-400 text-sm font-normal leading-normal">Categories Selected</p>
+</div>
+<p class="text-white text-sm font-semibold leading-normal text-right">4</p>
+</div>
+<div class="flex justify-between gap-x-6 py-3 border-b border-white/5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-400 text-sm">notifications_active</span>
+<p class="text-gray-400 text-sm font-normal leading-normal">Alerts</p>
+</div>
+<p class="text-primary text-sm font-semibold leading-normal text-right uppercase tracking-wider">Enabled</p>
+</div>
+<div class="flex justify-between gap-x-6 py-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-400 text-sm">database</span>
+<p class="text-gray-400 text-sm font-normal leading-normal">Sync Status</p>
+</div>
+<p class="text-white text-sm font-semibold leading-normal text-right">Encrypted</p>
+</div>
+</div>
+<!-- Placeholder for visual flair -->
+<div class="mt-8 mb-4">
+<div class="bg-center bg-no-repeat aspect-[21/9] bg-cover rounded-xl w-full border border-white/5 relative overflow-hidden" data-alt="Blue and black cybernetic hero interface background" style="background-image: linear-gradient(135deg, #101822 0%, #2b7cee33 100%);">
+<div class="absolute inset-0 flex items-center justify-center opacity-20">
+<span class="material-symbols-outlined text-[80px]">radar</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer / Action Button -->
+<div class="p-6 bg-background-light dark:bg-background-dark border-t border-white/10 shrink-0">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-[0.98]">
+                Go to Login
+            </button>
+<div class="h-6"></div> <!-- Safe area spacer -->
+</div>
+</div>
+</body></html>

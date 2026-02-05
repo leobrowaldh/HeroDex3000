@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Forgot Password - HeroDex</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b7cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+        }
+        .ios-safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col">
+<div class="relative flex min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden max-w-[480px] mx-auto">
+<!-- TopAppBar -->
+<div class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10">
+<div class="text-primary flex size-12 shrink-0 items-center cursor-pointer">
+<span class="material-symbols-outlined" style="font-size: 28px;">chevron_left</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">Reset Password</h2>
+</div>
+<div class="flex-1 flex flex-col px-4">
+<!-- Hero Illustration/Branding Icon -->
+<div class="flex justify-center py-8">
+<div class="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary" style="font-size: 48px;">lock_reset</span>
+</div>
+</div>
+<!-- HeadlineText -->
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-white tracking-light text-[32px] font-bold leading-tight text-left pb-3 pt-6">Forgot Password?</h1>
+</div>
+<!-- BodyText -->
+<div class="flex flex-col">
+<p class="text-slate-600 dark:text-slate-300 text-base font-normal leading-normal pb-6 pt-1">
+                    Enter the email address associated with your HeroDex account. We'll send you a link to reset your password.
+                </p>
+</div>
+<!-- TextField -->
+<div class="flex flex-col gap-4 py-3">
+<label class="flex flex-col w-full">
+<p class="text-slate-900 dark:text-white text-base font-medium leading-normal pb-2">Email Address</p>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" style="font-size: 20px;">mail</span>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-slate-200 dark:border-[#3b4554] bg-white dark:bg-[#1c2027] focus:border-primary h-14 placeholder:text-slate-400 dark:placeholder:text-[#9da8b9] pl-12 pr-4 text-base font-normal leading-normal" placeholder="hero@herodex.com" type="email" value=""/>
+</div>
+</label>
+</div>
+<!-- SingleButton -->
+<div class="flex py-6">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-14 px-5 flex-1 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-primary/20 active:scale-[0.98] transition-transform">
+<span class="truncate">Send Reset Link</span>
+</button>
+</div>
+<!-- Secondary Link -->
+<div class="mt-auto pb-10 flex justify-center">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">
+                    Remembered? <a class="text-primary hover:underline ml-1" href="#">Return to Login</a>
+</p>
+</div>
+</div>
+<!-- Decorative Blueprint Background Pattern (Low Opacity) -->
+<div class="fixed inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05] z-[-1]" data-alt="Subtle dot pattern background for technical feel" style="background-image: radial-gradient(circle, currentColor 1px, transparent 1px); background-size: 24px 24px;">
+</div>
+</div>
+</body></html>
