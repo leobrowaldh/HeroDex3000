@@ -97,7 +97,6 @@ class HeroDetailPage extends StatelessWidget {
 
                   const SizedBox(height: 16),
 
-                  // FIGHTING POWER BOX (FIXED)
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
@@ -156,7 +155,6 @@ class HeroDetailPage extends StatelessWidget {
     );
   }
 
-  // INFO CARD FIXED (value text now darker)
   Widget _buildInfoCard(BuildContext context, String label, String value) {
     return Container(
       padding: const EdgeInsets.all(12),
@@ -185,7 +183,6 @@ class HeroDetailPage extends StatelessWidget {
     );
   }
 
-  // STAT BAR (unchanged)
   Widget _buildStatBar(BuildContext context, String label, int value) {
     final maxValue = 100;
     final percentage = (value / maxValue).clamp(0.0, 1.0);

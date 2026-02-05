@@ -28,7 +28,6 @@ class SavedCubit extends Cubit<SavedState> {
   Future<void> deleteHero(HeroEntity hero) async {
     if (hero.localId == null) return;
     
-    // Optimistic update could happen here, but for safety reloading after delete
     try {
       await _deleteHeroUseCase(hero.localId!);
       await loadSavedHeroes();

@@ -51,9 +51,6 @@ class SavedPage extends StatelessWidget {
                       onTap: () {
                         context.push('/details', extra: hero);
                       },
-                      // Hide bookmark button in saved view or make it readonly?
-                      // Requirement says "Swipe to remove", so maybe button is redundant but keeps UI consistent.
-                      // Let's pass empty onBookmark or handle it.
                       onBookmark: () {
                         context.read<SavedCubit>().deleteHero(hero);
                       },

@@ -61,7 +61,7 @@ class SearchCubit extends Cubit<SearchState> {
 
           final updated = current.map((h) {
             if (h.externalId == hero.externalId) {
-              return h.copyWithLocalId(null); // UI: unsaved
+              return h.copyWithLocalId(null);
             }
             return h;
           }).toList();
@@ -77,7 +77,7 @@ class SearchCubit extends Cubit<SearchState> {
 
           final updated = current.map((h) {
             if (h.externalId == hero.externalId) {
-              return h.copyWithLocalId("saved-ui"); // UI: saved
+              return h.copyWithLocalId("saved-ui");
             }
             return h;
           }).toList();
