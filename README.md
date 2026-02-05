@@ -74,31 +74,121 @@ This ensures predictable and transparent data handling.
 ---
 
 ## Architecture
-The application follows a feature‑based structure with clear separation between UI, state, and side effects.
+
+HeroDex 3000 follows a layered clean architecture designed for clarity, testability, and long‑term maintainability. Each layer has a single responsibility and communicates only with the layers directly above or below it.
+
+### Data Layer
+Responsible for low‑level data operations and external integrations.
 
 ```
-lib/
- ├─ features/
- │   ├─ onboarding/
- │   ├─ auth/
- │   ├─ home/
- │   ├─ search/
- │   ├─ heroes/
- │   └─ settings/
- ├─ services/
- ├─ cubits/
- ├─ router/
- ├─ widgets/
- └─ main.dart
+lib/data/
+ ├─ datasource/     # Remote/local data sources (API, Firebase, storage)
+ ├─ mappers/        # Conversions between DTOs and domain entities
+ ├─ models/         # Data transfer objects (DTOs)
+ └─ repositories/   # Repository implementations (bridge to domain layer)
 ```
 
-### Architectural principles
-- Feature‑oriented organization
-- Separation of concerns
-- Stateless UI components
-- Cubit for predictable state transitions
-- Services for external interactions
-- Dependency injection for testability and modularity
+This layer never exposes UI‑specific models. It focuses on raw data handling, mapping, and external communication.
+
+---
+
+### Domain Layer
+Contains the core business logic of the application. This layer is pure Dart with no Flutter imports.
+
+```
+lib/domain/
+ ├─ entities/       # Immutable business objects
+ ├─ repositories/   # Abstract repository interfaces
+ └─ use_cases/      # Application-specific actions (e.g., search heroes)
+```
+
+The domain layer defines *what* the app does, independent of *how* it is implemented.
+
+---
+
+### Presentation Layer
+Handles UI, state management, and routing. Organized by feature for scalability.
+
+```
+lib/presentation/
+ ├─ auth/
+ ├─ hero_detail/
+ ├─ home/
+ ├─ onboarding/
+ ├─ routing/
+ ├─ saved/
+ ├─ search/
+ ├─ settings/
+ └─ theme/
+```
+
+Each feature folder typically contains:
+- Pages/screens  
+- Cubits/state management  
+- Widgets specific to that feature  
+
+The presentation layer depends on the domain layer but never on the data layer.
+
+---
+
+### Services
+Cross‑cutting utilities that do not belong to a single feature.
+
+```
+lib/services/
+```
+
+Examples include:
+- Analytics service  
+- Crash reporting service  
+- Onboarding preference service  
+- API service wrappers  
+
+These are injected where needed through the dependency injection system.
+
+---
+
+### Dependency Injection
+All dependencies are configured in:
+
+```
+lib/injection.dart
+```
+
+This ensures:
+- Clear dependency boundaries  
+- Easy mocking for tests  
+- Centralized configuration  
+
+---
+
+### Entry Point
+The application starts in:
+
+```
+lib/main.dart
+```
+
+This file initializes:
+- Firebase  
+- Dependency injection  
+- Theme configuration  
+- Routing  
+- Root widget  
+
+---
+
+### Summary
+This architecture provides:
+- A clean separation of concerns  
+- Predictable data flow  
+- Testable business logic  
+- Modular feature development  
+- A structure that scales as the app grows  
+
+
+
+---
 
 ---
 
@@ -126,7 +216,7 @@ Navigation is implemented using **go_router**, providing:
 Example flow:
 
 ```
-Onboarding → Login → Home (Tabs)
+Splash → Onboarding → Login → Home (Tabs)
 ```
 
 ---
@@ -194,6 +284,11 @@ Cross‑platform UI framework.
 - app_tracking_transparency
 - flutter_native_splash
 - flutter_launcher_icons
+- cached_network_image
+- permission_handler
+- get_it
+- logger
+- equatable
 
 ---
 
@@ -218,18 +313,25 @@ flutter build ios
 ---
 
 ## Project Structure
-```
-features/
-  onboarding/
-  auth/
-  home/
-  search/
-  heroes/
-  settings/
-services/
-cubits/
-router/
-widgets/
+
+```text
+lib/
+ ├─ data/           # Data layer (Models, Repositories implementations, Data Sources)
+ ├─ domain/         # Domain layer (Entities, Repository interfaces, Use cases)
+ ├─ presentation/   # Presentation layer (UI and State Management)
+ │   ├─ auth/
+ │   ├─ hero_detail/
+ │   ├─ home/
+ │   ├─ onboarding/
+ │   ├─ saved/
+ │   ├─ search/
+ │   ├─ settings/
+ │   ├─ theme/
+ │   └─ routing/    # Navigation logic (GoRouter)
+ ├─ services/       # Cross-cutting infrastructure services
+ ├─ firebase_options.dart
+ ├─ injection.dart  # Dependency injection setup
+ └─ main.dart       # App entry point
 ```
 
 ---
