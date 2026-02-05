@@ -8,6 +8,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'i_hero_http_client.dart';
 import '../models/http_response_model.dart';
+import 'package:herodex/injection.dart';
+import 'package:herodex/services/platform_service.dart';
 
 class HeroHttpClient implements IHeroHttpClient {
   // Optional singleton (works fine with getIt)
@@ -31,13 +33,14 @@ class HeroHttpClient implements IHeroHttpClient {
   @override
   Future<HttpResponseSearchModel> searchHeroes(String query) async {
     final url = _buildUrl(query);
+    final wrappedUrl = Uri.parse(getIt<PlatformService>().wrapApiUrl(url.toString()));
 
-    log("🔎 Calling API: $url");
+    log("🔎 Calling API: $wrappedUrl");
 
     try {
       final response = await _client
-          .get(url)
-          .timeout(const Duration(seconds: 5));
+          .get(wrappedUrl)
+          .timeout(Duration(seconds: getIt<PlatformService>().isWeb ? 15 : 5));
 
       log("📡 Status: ${response.statusCode}");
       log("📦 Body: ${response.body}");

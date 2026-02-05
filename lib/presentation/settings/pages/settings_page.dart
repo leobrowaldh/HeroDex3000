@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:herodex/services/platform_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -90,7 +90,10 @@ class SettingsView extends StatelessWidget {
                 onChanged: (value) =>
                     context.read<SettingsCubit>().toggleLocation(value),
               ),
-              if (Platform.isIOS) ...[
+              if (context.read<SettingsCubit>().state.location) ...[
+                // Consider adding more location specific info if needed
+              ],
+              if (getIt<PlatformService>().isIOS) ...[
                 const Divider(),
                 _buildSectionHeader(context, 'App Tracking Transparency (iOS only)'),
                 ListTile(

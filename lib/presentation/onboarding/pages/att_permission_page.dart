@@ -1,4 +1,5 @@
-import 'dart:io';
+import 'package:herodex/injection.dart';
+import 'package:herodex/services/platform_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -13,12 +14,16 @@ class AttPermissionPage extends StatefulWidget {
 }
 
 class _AttPermissionPageState extends State<AttPermissionPage> {
+  late final PlatformService _platformService;
+
   @override
   void initState() {
     super.initState();
+    _platformService = getIt<PlatformService>();
+    
     // If not iOS, skip directly to permissions
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!Platform.isIOS) {
+      if (!_platformService.isIOS) {
         context.go('/onboarding/permissions');
       }
     });
@@ -37,7 +42,7 @@ class _AttPermissionPageState extends State<AttPermissionPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (!Platform.isIOS) {
+    if (!_platformService.isIOS) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 

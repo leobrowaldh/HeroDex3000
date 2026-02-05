@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:herodex/domain/entities/hero_entity.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:herodex/injection.dart';
+import 'package:herodex/services/platform_service.dart';
 
 class HeroCard extends StatelessWidget {
   final HeroEntity hero;
@@ -24,7 +26,9 @@ class HeroCard extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: CachedNetworkImage(
-                    imageUrl: hero.imageUrl!,
+                    imageUrl: getIt<PlatformService>().isWeb 
+                        ? getIt<PlatformService>().wrapImageUrl(hero.imageUrl!) 
+                        : hero.imageUrl!,
                     width: 80,
                     height: 80,
                     fit: BoxFit.cover,
@@ -72,34 +76,48 @@ class HeroCard extends StatelessWidget {
                     Text(
                       hero.name,
                       style: Theme.of(context).textTheme.titleMedium,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
 
                     if (hero.fullName != null)
                       Text(
                         hero.fullName!,
                         style: Theme.of(context).textTheme.bodySmall,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
 
                     Text(
                       'Alignment: ${hero.alignment.name}',
                       style: Theme.of(context).textTheme.bodySmall,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
 
                     if (hero.publisher != null)
                       Text(
                         hero.publisher!,
                         style: Theme.of(context).textTheme.bodySmall,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
 
                     const SizedBox(height: 6),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _stat(context, 'STR', hero.stats.strength),
-                        _stat(context, 'SPD', hero.stats.speed),
-                        _stat(context, 'POW', hero.stats.power),
-                      ],
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          _stat(context, 'STR', hero.stats.strength),
+                          const SizedBox(width: 12),
+                          _stat(context, 'SPD', hero.stats.speed),
+                          const SizedBox(width: 12),
+                          _stat(context, 'POW', hero.stats.power),
+                        ],
+                      ),
                     ),
                   ],
                 ),

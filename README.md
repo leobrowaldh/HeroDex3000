@@ -143,6 +143,7 @@ Examples include:
 - Crash reporting service  
 - Onboarding preference service  
 - API service wrappers  
+- Platform service (handles cross-platform logic and Web CORS)
 
 These are injected where needed through the dependency injection system.
 
@@ -222,7 +223,7 @@ Splash → Onboarding → Login → Home (Tabs)
 ---
 
 ## Data Sources
-- External Hero API
+- External Hero API (with Web CORS proxy support)
 - Firebase Firestore
 - Firebase Authentication
 - Local storage for onboarding preferences
@@ -233,12 +234,13 @@ Splash → Onboarding → Login → Home (Tabs)
 The app is structured to avoid runtime crashes through:
 
 - Centralized error handling
+- Platform-aware service layer (via `PlatformService`)
 - Predictable state transitions
 - Defensive service layers
 - UI that does not assume data availability
 - Null‑safe codebase
 
-The goal is consistent behavior across all platforms, even under adverse conditions.
+The goal is a seamless, stable experience across Mobile (Android/iOS), Tablet, and Web.
 
 ---
 

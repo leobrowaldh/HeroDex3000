@@ -27,11 +27,14 @@ class HomePage extends StatelessWidget {
             }
 
             if (state is HomeLoaded) {
-              return SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
+              return Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 800),
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
                     // --- STATISTICS CARDS ---
                     Row(
                       children: [
@@ -105,7 +108,9 @@ class HomePage extends StatelessWidget {
                     }),
                   ],
                 ),
-              );
+              ),
+            ),
+          );
             }
 
             return const SizedBox.shrink();
