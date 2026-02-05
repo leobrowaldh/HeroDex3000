@@ -28,7 +28,7 @@ class OnboardingIntroPage extends StatelessWidget {
             const SizedBox(height: 48),
             ElevatedButton(
               style: ElevatedButton.styleFrom(minimumSize: const Size(200, 50)),
-              onPressed: () => context.go('/onboarding/permissions'),
+              onPressed: () => context.go('/onboarding/att'),
               child: const Text('Start Setup'),
             ),
           ],

@@ -12,12 +12,14 @@ class SettingsCubit extends Cubit<SettingsState> {
     final analytics = await _onboardingService.getAnalytics();
     final crashlytics = await _onboardingService.getCrashlytics();
     final location = await _onboardingService.getLocation();
+    final attStatus = await _onboardingService.getAttStatus();
 
     emit(
       state.copyWith(
         analytics: analytics,
         crashlytics: crashlytics,
         location: location,
+        attStatus: attStatus,
         isLoading: false,
       ),
     );

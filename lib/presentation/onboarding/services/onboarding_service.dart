@@ -41,4 +41,16 @@ class OnboardingService {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool(_keyLocation) ?? false;
   }
+
+  static const _keyAttStatus = 'pref_att_status';
+
+  Future<void> setAttStatus(String status) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_keyAttStatus, status);
+  }
+
+  Future<String?> getAttStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_keyAttStatus);
+  }
 }

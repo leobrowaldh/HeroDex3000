@@ -21,6 +21,7 @@ import 'package:herodex/presentation/hero_detail/pages/hero_detail_page.dart';
 import 'package:herodex/presentation/onboarding/cubit/onboarding_cubit.dart';
 import 'package:herodex/presentation/onboarding/services/onboarding_service.dart';
 import 'package:herodex/presentation/onboarding/pages/onboarding_intro_page.dart';
+import 'package:herodex/presentation/onboarding/pages/att_permission_page.dart';
 import 'package:herodex/presentation/onboarding/pages/onboarding_permissions_page.dart';
 import 'package:herodex/presentation/onboarding/pages/onboarding_summary_page.dart';
 
@@ -83,6 +84,10 @@ final GoRouter appRouter = GoRouter(
           path: '/onboarding',
           builder: (context, state) => const OnboardingIntroPage(),
           routes: [
+            GoRoute(
+              path: 'att',
+              builder: (context, state) => const AttPermissionPage(),
+            ),
             GoRoute(
               path: 'permissions',
               builder: (context, state) => const OnboardingPermissionsPage(),

@@ -32,6 +32,10 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     ));
   }
 
+  Future<void> setAttStatus(String status) async {
+    await _service.setAttStatus(status);
+  }
+
   Future<void> completeOnboarding() async {
     await _service.savePreferences(
       analytics: state.analytics,

@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:herodex/injection.dart';
 import 'package:herodex/presentation/settings/cubit/settings_cubit.dart';
 import 'package:herodex/presentation/settings/cubit/settings_state.dart';
@@ -88,6 +90,24 @@ class SettingsView extends StatelessWidget {
                 onChanged: (value) =>
                     context.read<SettingsCubit>().toggleLocation(value),
               ),
+              if (Platform.isIOS) ...[
+                const Divider(),
+                _buildSectionHeader(context, 'App Tracking Transparency (iOS only)'),
+                ListTile(
+                  leading: const Icon(Icons.privacy_tip),
+                  title: const Text('Tracking Status'),
+                  trailing: Text(
+                    state.attStatus ?? 'unknown',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.settings),
+                  title: const Text('Open iOS Settings'),
+                  subtitle: const Text('Manage tracking permissions in system settings'),
+                  onTap: () => openAppSettings(),
+                ),
+              ],
 
           const Divider(),
           _buildSectionHeader(context, 'HeroDex 3000-info'),
