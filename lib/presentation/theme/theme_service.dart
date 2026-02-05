@@ -12,4 +12,16 @@ class ThemeService {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool(_keyDarkMode) ?? false;
   }
+
+  static const _keyHighContrast = 'pref_high_contrast';
+
+  Future<void> setHighContrast(bool isHighContrast) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_keyHighContrast, isHighContrast);
+  }
+
+  Future<bool> isHighContrast() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_keyHighContrast) ?? false;
+  }
 }

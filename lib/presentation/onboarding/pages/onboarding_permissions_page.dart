@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:herodex/presentation/onboarding/cubit/onboarding_cubit.dart';
+import 'package:herodex/presentation/theme/cubit/theme_cubit.dart';
 
 class OnboardingPermissionsPage extends StatelessWidget {
   const OnboardingPermissionsPage({super.key});
@@ -50,6 +51,20 @@ class OnboardingPermissionsPage extends StatelessWidget {
                   value: state.location,
                   onChanged: (v) =>
                       context.read<OnboardingCubit>().setLocation(v),
+                ),
+                const Divider(),
+
+                BlocBuilder<ThemeCubit, ThemeState>(
+                  builder: (context, themeState) {
+                    return _buildSwitch(
+                      context: context,
+                      title: 'High Contrast Mode',
+                      subtitle: 'Increase visibility for better accessibility.',
+                      value: themeState.isHighContrast,
+                      onChanged: (v) =>
+                          context.read<ThemeCubit>().toggleHighContrast(v),
+                    );
+                  },
                 ),
 
                 const Spacer(),

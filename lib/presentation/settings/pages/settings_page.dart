@@ -33,17 +33,32 @@ class SettingsView extends StatelessWidget {
           return ListView(
             children: [
               _buildSectionHeader(context, 'Appearance'),
-              BlocBuilder<ThemeCubit, ThemeMode>(
-                builder: (context, themeMode) {
-                  final isDark = themeMode == ThemeMode.dark;
-                  return SwitchListTile(
-                    title: const Text('Dark Mode'),
-                    subtitle: const Text('Enable dark theme'),
-                    secondary: const Icon(Icons.dark_mode),
-                    value: isDark,
-                    onChanged: (value) {
-                      context.read<ThemeCubit>().toggleTheme(value);
-                    },
+              BlocBuilder<ThemeCubit, ThemeState>(
+                builder: (context, themeState) {
+                  final isDark = themeState.themeMode == ThemeMode.dark;
+                  return Column(
+                    children: [
+                      SwitchListTile(
+                        title: const Text('Dark Mode'),
+                        subtitle: const Text('Enable dark theme'),
+                        secondary: const Icon(Icons.dark_mode),
+                        value: isDark,
+                        onChanged: (value) {
+                          context.read<ThemeCubit>().toggleTheme(value);
+                        },
+                      ),
+                      SwitchListTile(
+                        title: const Text('High Contrast Mode'),
+                        subtitle: const Text('Increase visibility'),
+                        secondary: const Icon(Icons.contrast),
+                        value: themeState.isHighContrast,
+                        onChanged: (value) {
+                          context
+                              .read<ThemeCubit>()
+                              .toggleHighContrast(value);
+                        },
+                      ),
+                    ],
                   );
                 },
               ),
@@ -73,7 +88,34 @@ class SettingsView extends StatelessWidget {
                 onChanged: (value) =>
                     context.read<SettingsCubit>().toggleLocation(value),
               ),
-            ],
+
+          const Divider(),
+          _buildSectionHeader(context, 'HeroDex 3000-info'),
+          ListTile(
+            leading: const Icon(Icons.info),
+            title: const Text('Version'),
+            trailing: const Text(
+              '1.0',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.person),
+            title: const Text('Creator'),
+            trailing: const Text(
+              'Leo Browaldh',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.calendar_today),
+            title: const Text('Year'),
+            trailing: const Text(
+              '2026',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
           );
         },
       ),

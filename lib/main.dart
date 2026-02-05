@@ -39,14 +39,16 @@ class MyApp extends StatelessWidget {
             create: (_) => getIt<ThemeCubit>()..loadTheme(),
           ),
         ],
-        child: BlocBuilder<ThemeCubit, ThemeMode>(
-          builder: (context, themeMode) {
+        child: BlocBuilder<ThemeCubit, ThemeState>(
+          builder: (context, themeState) {
             return MaterialApp.router(
               debugShowCheckedModeBanner: false,
               routerConfig: appRouter,
-              theme: AppTheme.lightTheme,
-              darkTheme: AppTheme.darkTheme,
-              themeMode: themeMode,
+              theme: AppTheme.getLightTheme(
+                  isHighContrast: themeState.isHighContrast),
+              darkTheme: AppTheme.getDarkTheme(
+                  isHighContrast: themeState.isHighContrast),
+              themeMode: themeState.themeMode,
             );
           },
         ),

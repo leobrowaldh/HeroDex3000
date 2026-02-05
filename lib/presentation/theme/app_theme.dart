@@ -15,86 +15,124 @@ class AppTheme {
   // -----------------------------
   // LIGHT THEME
   // -----------------------------
-  static final ThemeData lightTheme = ThemeData(
-    useMaterial3: true,
-    brightness: Brightness.light,
-
-    // Core color scheme
-    colorScheme: ColorScheme.fromSeed(
+  static ThemeData getLightTheme({bool isHighContrast = false}) {
+    final colorScheme = ColorScheme.fromSeed(
       seedColor: _brandOrange,
       brightness: Brightness.light,
       primary: _brandOrange,
       secondary: _brandRed,
-      surface: _lightSurface,
-    ),
+      surface: isHighContrast ? Colors.white : _lightSurface,
+    );
 
-    scaffoldBackgroundColor: _lightSurface,
-
-    cardColor: Colors.white, // crisp, clean, no more pink/beige
-
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: _navBarColorLight,
-      selectedItemColor: Colors.white,
-      unselectedItemColor: _navBarUnselected,
-      showUnselectedLabels: true,
-      type: BottomNavigationBarType.fixed,
-    ),
-
-    appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.white,
-      foregroundColor: Colors.black87,
-      elevation: 1,
-    ),
-
-    textTheme: const TextTheme(
-      bodyMedium: TextStyle(color: Colors.black87),
-      bodyLarge: TextStyle(color: Colors.black87),
-      titleMedium: TextStyle(
-        color: Colors.black87,
-        fontWeight: FontWeight.bold,
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.light,
+      colorScheme: colorScheme,
+      scaffoldBackgroundColor: isHighContrast ? Colors.white : _lightSurface,
+      cardColor: Colors.white,
+      cardTheme: CardThemeData(
+        color: Colors.white,
+        shape: isHighContrast
+            ? RoundedRectangleBorder(
+                side: const BorderSide(color: Colors.black, width: 2),
+                borderRadius: BorderRadius.circular(12),
+              )
+            : null,
+        elevation: isHighContrast ? 0 : null,
       ),
-      titleLarge: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-    ),
-  );
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: _navBarColorLight,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: _navBarUnselected,
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
+        selectedLabelStyle: isHighContrast
+            ? const TextStyle(fontWeight: FontWeight.w900, fontSize: 14)
+            : null,
+      ),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black87,
+        elevation: 1,
+      ),
+      textTheme: TextTheme(
+        bodyMedium: TextStyle(
+          color: Colors.black87,
+          fontWeight: isHighContrast ? FontWeight.bold : null,
+        ),
+        bodyLarge: TextStyle(
+          color: Colors.black87,
+          fontWeight: isHighContrast ? FontWeight.bold : null,
+        ),
+        titleMedium: const TextStyle(
+          color: Colors.black87,
+          fontWeight: FontWeight.bold,
+        ),
+        titleLarge:
+            const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
 
   // -----------------------------
   // DARK THEME
   // -----------------------------
-  static final ThemeData darkTheme = ThemeData(
-    useMaterial3: true,
-    brightness: Brightness.dark,
-
-    colorScheme: ColorScheme.fromSeed(
+  static ThemeData getDarkTheme({bool isHighContrast = false}) {
+    final colorScheme = ColorScheme.fromSeed(
       seedColor: _brandOrange,
       brightness: Brightness.dark,
       primary: _brandOrange,
       secondary: _brandRed,
-      surface: _darkSurface,
-    ),
+      surface: isHighContrast ? Colors.black : _darkSurface,
+      onSurface: Colors.white,
+    );
 
-    scaffoldBackgroundColor: _darkSurface,
-
-    cardColor: const Color(0xFF1E1E1E), // deep charcoal card
-
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: _navBarColorDark,
-      selectedItemColor: Colors.orangeAccent,
-      unselectedItemColor: Colors.grey,
-      showUnselectedLabels: true,
-      type: BottomNavigationBarType.fixed,
-    ),
-
-    appBarTheme: const AppBarTheme(
-      backgroundColor: Color(0xFF1E1E1E),
-      foregroundColor: Colors.white,
-      elevation: 1,
-    ),
-
-    textTheme: const TextTheme(
-      bodyMedium: TextStyle(color: Colors.white),
-      bodyLarge: TextStyle(color: Colors.white),
-      titleMedium: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      titleLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-    ),
-  );
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.dark,
+      colorScheme: colorScheme,
+      scaffoldBackgroundColor: isHighContrast ? Colors.black : _darkSurface,
+      cardColor: const Color(0xFF1E1E1E),
+      cardTheme: CardThemeData(
+        color: isHighContrast ? Colors.black : const Color(0xFF1E1E1E),
+        shape: isHighContrast
+            ? RoundedRectangleBorder(
+                side: const BorderSide(color: Colors.white, width: 2),
+                borderRadius: BorderRadius.circular(12),
+              )
+            : null,
+        elevation: isHighContrast ? 0 : null,
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: _navBarColorDark,
+        selectedItemColor: Colors.orangeAccent,
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
+        selectedLabelStyle: isHighContrast
+            ? const TextStyle(fontWeight: FontWeight.w900, fontSize: 14)
+            : null,
+      ),
+      appBarTheme: AppBarTheme(
+        backgroundColor:
+            isHighContrast ? Colors.black : const Color(0xFF1E1E1E),
+        foregroundColor: Colors.white,
+        elevation: 1,
+      ),
+      textTheme: TextTheme(
+        bodyMedium: TextStyle(
+          color: Colors.white,
+          fontWeight: isHighContrast ? FontWeight.bold : null,
+        ),
+        bodyLarge: TextStyle(
+          color: Colors.white,
+          fontWeight: isHighContrast ? FontWeight.bold : null,
+        ),
+        titleMedium:
+            const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        titleLarge:
+            const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
 }
