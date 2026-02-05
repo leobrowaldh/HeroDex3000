@@ -26,7 +26,9 @@ class StatsCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: (accentColor ?? Theme.of(context).primaryColor).withOpacity(0.1),
+                color: (accentColor ?? Theme.of(context).primaryColor)
+                    .withValues(alpha: 0.1),
+
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -43,15 +45,15 @@ class StatsCard extends StatelessWidget {
                   Text(
                     title,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: Theme.of(context).textTheme.bodySmall?.color,
-                        ),
+                      color: Theme.of(context).textTheme.bodySmall?.color,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     value,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),

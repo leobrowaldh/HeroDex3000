@@ -18,6 +18,10 @@ import 'package:herodex/presentation/search/cubit/search_cubit.dart';
 import 'package:herodex/presentation/theme/theme_service.dart';
 import 'package:herodex/presentation/theme/cubit/theme_cubit.dart';
 import 'package:herodex/presentation/settings/cubit/settings_cubit.dart';
+import 'package:herodex/services/analytics_service.dart';
+import 'package:herodex/services/crashlytics_service.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 final getIt = GetIt.instance;
 
@@ -61,6 +65,18 @@ void setupDependencies() {
   // SERVICES
   // -----------------------------
   getIt.registerLazySingleton<OnboardingService>(() => OnboardingService());
+  getIt.registerLazySingleton<AnalyticsService>(
+    () => AnalyticsService(
+      analytics: FirebaseAnalytics.instance,
+      onboardingService: getIt<OnboardingService>(),
+    ),
+  );
+  getIt.registerLazySingleton<CrashlyticsService>(
+    () => CrashlyticsService(
+      crashlytics: FirebaseCrashlytics.instance,
+      onboardingService: getIt<OnboardingService>(),
+    ),
+  );
 
   // -----------------------------
   // CUBITS

@@ -1,29 +1,38 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 
 import 'package:herodex/data/repositories/auth_repository.dart';
+import 'package:herodex/services/analytics_service.dart';
+import 'package:herodex/services/crashlytics_service.dart';
 
 // ----------------------
 // Mock classes
 // ----------------------
 class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 
-class MockFirebaseAnalytics extends Mock implements FirebaseAnalytics {}
+class MockAnalyticsService extends Mock implements AnalyticsService {}
+
+class MockCrashlyticsService extends Mock implements CrashlyticsService {}
 
 class MockUserCredential extends Mock implements UserCredential {}
 
 void main() {
   late MockFirebaseAuth mockAuth;
-  late MockFirebaseAnalytics mockAnalytics;
+  late MockAnalyticsService mockAnalyticsService;
+  late MockCrashlyticsService mockCrashlyticsService;
   late AuthRepository repo;
 
   setUp(() {
     mockAuth = MockFirebaseAuth();
-    mockAnalytics = MockFirebaseAnalytics();
+    mockAnalyticsService = MockAnalyticsService();
+    mockCrashlyticsService = MockCrashlyticsService();
 
-    repo = AuthRepository(firebaseAuth: mockAuth, analytics: mockAnalytics);
+    repo = AuthRepository(
+      firebaseAuth: mockAuth,
+      analyticsService: mockAnalyticsService,
+      crashlyticsService: mockCrashlyticsService,
+    );
   });
 
   // --------------------------------------------------
@@ -39,7 +48,7 @@ void main() {
 
     // Prevent analytics from throwing
     when(
-      () => mockAnalytics.logLogin(loginMethod: any(named: 'loginMethod')),
+      () => mockAnalyticsService.logLoginPassword(),
     ).thenAnswer((_) async => {});
 
     await repo.signIn(email: 'test@test.com', password: '123456');

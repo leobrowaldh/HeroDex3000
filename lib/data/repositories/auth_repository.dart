@@ -1,17 +1,19 @@
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:herodex/services/analytics_service.dart';
+import 'package:herodex/services/crashlytics_service.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth;
-  final FirebaseAnalytics _analytics;
+  final AnalyticsService _analyticsService;
+  final CrashlyticsService _crashlyticsService;
 
   AuthRepository({
     required FirebaseAuth firebaseAuth,
-    required FirebaseAnalytics analytics,
+    required AnalyticsService analyticsService,
+    required CrashlyticsService crashlyticsService,
   }) : _firebaseAuth = firebaseAuth,
-       _analytics = analytics;
+       _analyticsService = analyticsService,
+       _crashlyticsService = crashlyticsService;
 
   User? get currentUser => _firebaseAuth.currentUser;
 
@@ -19,15 +21,15 @@ class AuthRepository {
 
   Future<void> signIn({required String email, required String password}) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(
+      final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      if (Platform.isAndroid || Platform.isIOS) {
-        await _analytics.logLogin(loginMethod: "password");
-      }
-    } on FirebaseAuthException catch (e) {
+      await _analyticsService.logLoginPassword();
+      await _crashlyticsService.setUserId(userCredential.user!.uid);
+    } on FirebaseAuthException catch (e, stackTrace) {
+      await _crashlyticsService.recordError(e, stackTrace);
       switch (e.code) {
         case 'invalid-email':
           throw AuthFailure('The email address is not valid.');
@@ -44,7 +46,8 @@ class AuthRepository {
         default:
           throw AuthFailure('Login failed. Please try again.');
       }
-    } catch (_) {
+    } catch (e, stackTrace) {
+      await _crashlyticsService.recordError(e, stackTrace);
       throw AuthFailure('An unexpected error occurred during login.');
     }
   }
