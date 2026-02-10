@@ -296,6 +296,15 @@ Cross‑platform UI framework.
 
 ## Running the App
 
+Add HeroApi Key:
+
+Go to https://superheroapi.com/ and generate an access token with your github account.
+Create a .env file in the root folder and paste the access token in the following format:
+```
+API_KEY=<YourAccessToken>
+```
+Save changes to file.
+
 Install dependencies:
 ```
 flutter pub get
